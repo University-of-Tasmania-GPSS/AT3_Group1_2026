@@ -14,3 +14,5 @@ Short description of each folder and notebook
 
 ### How to reproduce
 1. conda env create -f environment.yml
+
+Laila
