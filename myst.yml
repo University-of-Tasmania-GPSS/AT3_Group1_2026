@@ -1,0 +1,26 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 0f340295-fb32-4c60-a8eb-073f554106f6
+  title: KGG375 GIS Project: Rooftop Solar Potential Analysis
+   
+  toc:
+   - file: index.md
+   - title: Rooftop Solar Potential Analysis
+     children:
+     - file: methods.md
+     - file: results.md
+     - file: discussion.md
+     - file: conclusion.md
+     
+    
+  # description:
+  # keywords: []
+  # authors: []
+  github: https://github.com/University-of-Tasmania-GPSS/AT3_Group1_2026
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+site:
+  template: book-theme
+  # options:
+  #   favicon: favicon.ico
+  #   logo: site_logo.png
