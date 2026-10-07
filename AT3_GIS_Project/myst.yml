@@ -2,8 +2,16 @@
 version: 1
 project:
   id: 3ad594b3-286f-4b13-a7e9-83f7d8cc8f23
-  # title:
-  # description:
+  title: KGG375 GIS Project_Rooftop Solar Potential Analysis
+  toc:
+   - file: index.md
+   - title: Rooftop Solar Potential Analysis
+     children:
+     - file: methods.md
+     - file: results.md
+     - file: discussion.md
+     - file: conclusion.md
+     
   # keywords: []
   # authors: []
   # github:
