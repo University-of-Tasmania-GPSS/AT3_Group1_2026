@@ -14,9 +14,10 @@ Evaluating solar photovoltaic (PV) energy generation potential in different urba
 This porject estimates how much solar radiation rooftops between Hobart and the Eastern Shore, recieves over a year and which roofs are best suited to solar panels. 
 We built our own simplified model in Python and compared it against [**whatever model we choosing**] to explore the differences between the two.
 
-### Objectives
+## Objectives
+The objectives
 
-### Repository structure
+## Repository structure
 
 
 ```
@@ -33,29 +34,14 @@ We built our own simplified model in Python and compared it against [**whatever 
 ```
 
 
-
-ReadME.md
-myst.yml            # Jupyter Book settings and TOC
-index.md            # Home Page of the book
-
-notebooks/
-    01_
-    02_
-    03_
-    04_
-
-pages
-
-.github/workflows/  # Builds and Publishes book to GitHub  
-
 ## How to reproduce
 
 ### 1. Set up the environment
+1. conda env create -f environment.yml
+   
 ### 2. Acquire data
 ### 3. Run Notebooks
 ### 4. Build the Web book
-
-1. conda env create -f environment.yml
 
 
 ## AI usage
