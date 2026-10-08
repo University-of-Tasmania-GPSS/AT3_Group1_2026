@@ -8,7 +8,7 @@ Laila McLennan and Jane Stanton
 Evaluating solar photovoltaic (PV) energy generation potential in different urban environments.
 
 ## Published site
-**Published Jupyter Book:** [https://university-of-tasmania-gpss.github.io/AT3_Group1_2026/]
+**Published Jupyter Book:** [Rooftop Solar Modelling in Hobart](https://university-of-tasmania-gpss.github.io/AT3_Group1_2026/)
 
 ## Project Overview
 This porject estimates how much solar radiation rooftops between Hobart and the Eastern Shore, recieves over a year and which roofs are best suited to solar panels. 
@@ -17,6 +17,22 @@ We built our own simplified model in Python and compared it against [**whatever 
 ### Objectives
 
 ### Repository structure
+
+
+```
+├── README.md
+├── myst.yml                  # Jupyter Book settings and TOC
+├── index.md                  # Home page of the book
+├── notebooks/
+│   ├── 01_data_acquisition.ipynb
+│   ├── 02_preprocessing.ipynb
+│   ├── 03_analysis.ipynb
+│   └── 04_figures_maps.ipynb
+├── pages/                    # Book pages
+└── .github/workflows/        # Builds and publishes book to GitHub
+```
+
+
 
 ReadME.md
 myst.yml            # Jupyter Book settings and TOC
