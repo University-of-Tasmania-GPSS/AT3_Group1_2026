@@ -1,13 +1,13 @@
 ---
 title: Rooftop Solar Potential in Hobart
-short_title: Home
+short_title: Overview
 ---
 
 **KGG375/541 GIS Project – Group 1, 2026**
 
-Name One, Name Two, Name Three
+Jane Stanton, Laila McLennan
 
-```{figure} Images/cover.png
+```{figure} Images/LailaTesr.jpeg
 :width: 90%
 :alt: Rooftops in Hobart looking across the Derwent
 
