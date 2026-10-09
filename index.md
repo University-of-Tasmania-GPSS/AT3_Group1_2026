@@ -10,6 +10,14 @@ We focussed on an area in Hobart, either side of the Derwent River, the Eastern 
 A test screenshot, to see how to insert an image.
 :::
 
+```{figure} Images/LailaTesr.jpeg
+:label: fig-study-area
+:width: 80%
+:alt: Map of the study area in Hobart
+
+Study area showing the western and eastern shore test areas.
+```
+
 I am a book about ... something! Wikipedia has [information about books](wiki:book): hover over the link for more information.
 
 % An admonition containing a note
