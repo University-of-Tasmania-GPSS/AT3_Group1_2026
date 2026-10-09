@@ -2,15 +2,14 @@
 version: 1
 project:
   id: 1d4768a4-e39f-4048-92f3-eb4a1d06fb59
-  title: KGG375 GIS Project_Rooftop Solar Potential Analysis
+  title: Rooftop Solar Potential in Hobart
   toc:
-   - file: index.md
-   - title: Rooftop Solar Potential Analysis
-     children:
-     - file: methods.md
-     - file: results.md
-     - file: discussion.md
-     - file: conclusion.md
+    - file: index.md
+    - file: intro.md
+    - file: methods.md
+    - file: results.md
+    - file: discussion.md
+    - file: conclusion.md
   # description:
   # keywords: []
   # authors: []

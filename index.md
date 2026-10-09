@@ -1,44 +1,42 @@
-# Introduction
+---
+title: Rooftop Solar Potential in Hobart
+short_title: Home
+---
 
-The aim of this study was to look at roof top solar potential for renewable energy generation, with both simple modelling techniques, using Python commands and the modern geospatial stack (Make sure you can explain what this is Jane!) and to compare this to a proprietary solar modelling application "Insert our model here".
-We focussed on an area in Hobart, either side of the Derwent River, the Eastern and Western shores.
+**KGG375/541 GIS Project – Group 1, 2026**
 
-:::{figure} C:\Users\jesta\KGG375_AT3\AT3_Group1_2026\Images\TESTScreenshot 2026-10-09 135024.png
-:label: fig:my-photo
-:alt: A test screenshot, to see how to insert an image
+Name One, Name Two, Name Three
 
-A test screenshot, to see how to insert an image.
-:::
+```{figure} Images/cover.png
+:width: 90%
+:alt: Rooftops in Hobart looking across the Derwent
 
-```{figure} Images/LailaTesr.jpeg
-:label: fig-study-area
-:width: 80%
-:alt: Map of the study area in Hobart
-
-Study area showing the western and eastern shore test areas.
+Hobart and the Eastern Shore across the River Derwent.
 ```
 
-I am a book about ... something! Wikipedia has [information about books](wiki:book): hover over the link for more information.
+A comparison of rooftop solar potential on the western and eastern shores of Hobart, using our own Python model and ArcGIS Pro.
 
-% An admonition containing a note
-:::{note}
-Books are usually written on paper ... But Jupyter Book can create _websites_!
+## Explore the project
+
+::::{grid} 1 2 2 3
+:::{card} Introduction
+:link: intro
+What we looked at and why
 :::
-
-If you sold 100 books at \$10 per book, you'd have \$1000 dollars according to [](#eq:book). If instead you publish your Jupyter Book to the web for free, you'd have \$0 dollars!
-
-% An arbitrary math equation
-:::{math}
-:name: eq:book
-
-x \times y = z
+:::{card} Methods
+:link: methods
+Data and how the model works
 :::
-
-Sometimes when reading it is helpful to foster a _tranquil_ environment. The image in [](#fig:mountains) would be a perfect spot!
-
-% A figure of a photograph of some mountains, followed by a caption
-:::{figure} https://github.com/rowanc1/pics/blob/main/mountains.png?raw=true
-:label: fig:mountains
-
-A photograph of some beautiful mountains to look at whilst reading.
+:::{card} Results
+:link: results
+West vs east
 :::
+:::{card} Discussion
+:link: discussion
+What the results mean
+:::
+:::{card} Conclusion
+:link: conclusion
+Main takeaways
+:::
+::::
