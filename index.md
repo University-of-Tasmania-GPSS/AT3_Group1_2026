@@ -3,6 +3,12 @@
 The aim of this study was to look at roof top solar potential for renewable energy generation, with both simple modelling techniques, using Python commands and the modern geospatial stack (Make sure you can explain what this is Jane!) and to compare this to a proprietary solar modelling application "Insert our model here".
 We focussed on an area in Hobart, either side of the Derwent River, the Eastern and Western shores.
 
+:::{figure} Images/TESTScreenshot 2026-10-09 135024.png
+:label: fig:my-photo
+:alt: A test screenshot, to see how to insert an image
+
+A test screenshot, to see how to insert an image.
+:::
 
 I am a book about ... something! Wikipedia has [information about books](wiki:book): hover over the link for more information.
 
