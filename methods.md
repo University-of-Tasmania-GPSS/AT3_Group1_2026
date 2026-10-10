@@ -5,41 +5,38 @@
 ```{mermaid}
 flowchart TD
 
-  subgraph S1[1. Data]
-    A[LiDAR point cloud]
-    B[Building footprints]
-    C[Hourly weather file]
-  end
+  A[LiDAR point cloud]
+  B[Building footprints]
+  C[Hourly weather file]
 
-  subgraph S2[2. Preparation]
-    D[0.5 m surface model]
-    E[Two 600 m test areas]
-    K[Roofs in each test area]
-  end
+  D[0.5 m surface model]
+  F[Our Python model]
+  G[SEBE in QGIS]
 
-  subgraph S3[3. Modelling]
-    F[Our Python model]
-    G[SEBE in QGIS]
-  end
-
-  subgraph S4[4. Results]
-    H[Annual radiation per roof]
-    J[Our model vs SEBE]
-    I[Sandy Bay vs Howrah]
-  end
+  H[Annual radiation per roof]
+  J[Our model vs SEBE]
 
   A --> D
-  D --> E
-  B --> K
-  E --> F
-  E --> G
+  D --> F
+  D --> G
   C --> F
   C --> G
+  B --> H
   F --> H
   G --> H
-  K --> H
   H --> J
-  H --> I
+
+  classDef input fill:#cfe2f3,stroke:#3d85c6,color:#000
+  classDef process fill:#eeeeee,stroke:#666666,color:#000
+  classDef python fill:#fff2cc,stroke:#bf9000,color:#000
+  classDef sebe fill:#ead1dc,stroke:#a64d79,color:#000
+  classDef output fill:#d9ead3,stroke:#38761d,color:#000
+
+  class A,B,C input
+  class D process
+  class F python
+  class G sebe
+  class H,J output
 ```
 
 ## Data
@@ -53,17 +50,55 @@ flowchart TD
 
 Everything was reprojected to GDA2020 / MGA zone 55 (EPSG:7855), so the layers line up and distances are in metres.
 
-:::{dropdown} What do GHI, DNI and DHI mean?
-- **GHI (global horizontal irradiance):** all the sunlight landing on flat ground.
-- **DNI (direct normal irradiance):** sunlight coming straight from the sun.
-- **DHI (diffuse horizontal irradiance):** sunlight scattered by the sky and clouds.
-
-A roof is tilted, so the direct and diffuse parts have to be worked out separately and then added back together.
-:::
 
 ## Data preparation
 
 All of the preparation was done for the full study area first, and the two test areas were cut out at the end.
+
+
+## Surface Characteristics
+
+Three layers were calculated from the surface model. They describe the shape of each roof and are used in our model and in the suitability rules.
+
+::::{tab-set}
+
+:::{tab-item} Slope
+How steep each cell is, in degrees. A flat roof is close to 0° and a wall is close to 90°.
+
+```{figure} Images/slope.png
+:label: fig-slope
+:width: 100%
+:alt: Slope maps of the Sandy Bay and Howrah test areas side by side
+
+Slope in degrees for the Sandy Bay (left) and Howrah (right) test areas.
+```
+:::
+
+:::{tab-item} Aspect
+The compass direction each cell faces. In Hobart, north-facing roofs get the most sun.
+
+```{figure} Images/aspect.png
+:label: fig-aspect
+:width: 100%
+:alt: Aspect maps of the Sandy Bay and Howrah test areas side by side
+
+Aspect in degrees clockwise from north for the Sandy Bay (left) and Howrah (right) test areas.
+```
+:::
+
+:::{tab-item} Roughness
+How bumpy the surface is around each cell. A clean roof face is smooth. Chimneys, skylights, roof edges and overhanging trees show up as rough.
+
+```{figure} Images/roughness.png
+:label: fig-roughness
+:width: 100%
+:alt: Roughness maps of the Sandy Bay and Howrah test areas side by side
+
+Surface roughness for the Sandy Bay (left) and Howrah (right) test areas.
+```
+:::
+
+::::
 
 ### Surface model
 
@@ -105,9 +140,8 @@ To check the weather file was accurate, we compared its yearly total with the Gl
 
 ### Test areas
 
-SEBE could not process the full study area at 0.5 m, so we created two 600 m × 600 m samples out of the prepared data, one in Sandy Bay and one in Howrah. Both models were run on the same two samples so the results could be compared cell by cell.
-
-% Add the number of buildings in each sample
+SEBE could not process the full study area at 0.5 m, so we created two 600 m × 600 m samples out of the prepared data, one in Sandy Bay and one in Howrah. Both models were run on the same two samples so the results could be compared cell by cell. 
+In the Sandy Bay Subset there were 581 buildings and in the Howrah subset there were 279 buildings. 
 
 
 ## The two models
@@ -163,6 +197,31 @@ gdal.DEMProcessing(str(slope_path), str(dsm_path), "slope", slopeFormat="degree"
 gdal.DEMProcessing(str(aspect_path), str(dsm_path), "aspect")
 ```
 :::
+
+
+## Suitability criteria
+
+High sunlight doesn't always mean a panel can go there. We set six rules, and a cell only counts as suitable if it passes all of them.
+
+| Rule | Limit | Why | Source |
+|---|---|---|---|
+| Inside a building footprint | n/a | Only roofs count, not ground or trees | n/a |
+| Slope | Below [ ]° | Very steep cells are walls or roof edges | [ ] |
+| Aspect | Not facing [ ] on tilted roofs | South faces get the least sun in Hobart | [ ] |
+| Roughness | Below [ ] | Removes chimneys, edges and clutter | [ ] |
+| Yearly sunlight | Above [ ] kWh/m² | Enough sun to be worth it | [ ] |
+| Suitable area per roof | At least [ ] m² | A panel needs a patch of space | [ ] |
+
+```{mermaid}
+flowchart LR
+  A[Yearly sunlight per cell] --> B[Apply the six rules]
+  B --> C[Suitable or not suitable map]
+  C --> D[Suitable roof area per building]
+
+  classDef output fill:#d9ead3,stroke:#38761d,color:#000
+  class C,D output
+```
+
 
 ## How the models differ
 
