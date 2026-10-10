@@ -1,26 +1,59 @@
-# Results
+# Methods
 
-I am a book about ... something! Wikipedia has [information about books](wiki:book): hover over the link for more information.
+## Workflow
 
-% An admonition containing a note
-:::{note}
-Books are usually written on paper ... But Jupyter Book can create _websites_!
+
+## Data
+
+| Data | Source | Details |
+|---|---|---|
+| LiDAR point cloud | ELVIS | Converted to a 0.5 m digital surface model in ArcGIS Pro |
+| Building footprints | LIST 2D Building Polygons | Hobart and Clarence council layers joined, 18,045 buildings in the study area |
+| Weather | EPW typical year file, Hobart Ellerslie Road | 8,760 hourly values of GHI, DNI and DHI |
+| Check data | Global Solar Atlas | Long-term average GHI raster |
+
+Everything was reprojected to GDA2020 / MGA zone 55 (EPSG:7855).
+
+## Data preparation
+
+The building layers for the two councils were joined, reprojected and clipped to the study area. 
+
+:::{dropdown} Show the code: joining and clipping the buildings
+```python
+
+```
 :::
 
-If you sold 100 books at \$10 per book, you'd have \$1000 dollars according to [](#eq:book). If instead you publish your Jupyter Book to the web for free, you'd have \$0 dollars!
+## The two models
 
-% An arbitrary math equation
-:::{math}
-:name: eq:book
+::::{tab-set}
 
-x \times y = z
+:::{tab-item} Our Python model
+
 :::
 
-Sometimes when reading it is helpful to foster a _tranquil_ environment. The image in [](#fig:mountains) would be a perfect spot!
-
-% A figure of a photograph of some mountains, followed by a caption
-:::{figure} https://github.com/rowanc1/pics/blob/main/mountains.png?raw=true
-:label: fig:mountains
-
-A photograph of some beautiful mountains to look at whilst reading.
+:::{tab-item} SEBE
+SEBE (Solar Energy on Building Envelopes) is a model in the UMEP plugin for QGIS.
 :::
+
+::::
+
+:::{dropdown} Show the code: slope and aspect
+```python
+
+```
+:::
+
+## How the models differ
+
+| | Our model | SEBE |
+|---|---|---|
+| Software | Python | QGIS (UMEP) |
+| Roof slope and direction | Yes | Yes |
+| Shading from buildings and terrain | [Yes/No] | Yes |
+| Reflected radiation | [Yes/No] | Yes |
+| Run time | [ ] | [ ] |
+
+## How we compared them
+
+Comparision
