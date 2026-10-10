@@ -2,7 +2,12 @@
 
 ## Background
 
-People in Hobart often say the Eastern Shore is the sunnier side of the river. Hobart sits at about 43°S, so the sun stays low in the sky through winter, and kunanyi/Mt Wellington rises behind the western suburbs. Both of these change how much sunlight a roof gets, which matters for anyone thinking about putting solar panels on their house. **[Add one or two sentences with references on rooftop solar uptake in Tasmania or Australia.]**
+People in Hobart often say the Eastern Shore is the sunnier side of the river. Hobart sits at about 43°S, so the sun stays low in the sky through winter, and kunanyi/Mt Wellington rises behind the western suburbs. Both of these change how much sunlight a roof gets, which matters for anyone thinking about putting solar panels on their house.
+
+The increase in uptake of solar panels as a source of renewable energy has increased substanially over the last ten years, and Tasmania, despite it's southern latitude and shorter winter sunlight hours, has followed that trend.
+
+https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy
+ **[Add one or two sentences with references on rooftop solar uptake in Tasmania or Australia.]**
 
 
 ## Project overview
