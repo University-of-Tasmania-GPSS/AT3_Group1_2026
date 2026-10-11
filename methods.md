@@ -15,6 +15,7 @@ flowchart TD
 
   H[Annual radiation per roof]
   J[Our model vs SEBE]
+  K[Suitable Roof Area]
 
   A --> D
   D --> F
@@ -25,6 +26,8 @@ flowchart TD
   F --> H
   G --> H
   H --> J
+  F --> K
+  B --> K
 
   classDef input fill:#cfe2f3,stroke:#3d85c6,color:#000
   classDef process fill:#eeeeee,stroke:#666666,color:#000
@@ -36,8 +39,10 @@ flowchart TD
   class D process
   class F python
   class G sebe
-  class H,J output
+  class H,J,K output
 ```
+Blue boxes are input data, yellow is our model, pink is SEBE and green boxes are outputs.
+
 
 ## Data
 
@@ -46,83 +51,28 @@ flowchart TD
 | LiDAR point cloud | Geoscience Australia, ELVIS | Converted to a 0.5 m digital surface model in ArcGIS Pro | Roof heights, slope and direction, and shading |
 | Building footprints | LIST 2D Building Polygons | Hobart and Clarence council layers joined | Picking out the roofs and averaging radiation for each one |
 | Weather | EPW typical year file, Hobart Ellerslie Road | 8,760 hourly values of GHI, DNI and DHI | The sunlight going into both models |
-| Reference data | Global Solar Atlas | Long-term average GHI raster | Checking the weather file gives a sensible yearly total |
 
-Everything was reprojected to GDA2020 / MGA zone 55 (EPSG:7855), so the layers line up and distances are in metres.
+Everything was reprojected to GDA2020 / MGA zone 55 (EPSG:7855).
 
 
 ## Data preparation
 
-All of the preparation was done for the full study area first, and the two test areas were cut out at the end.
+All of the preparation was done for the full study area first, and the two subsets were extracted at the end. 
 
-
-## Surface Characteristics
-
-Three layers were calculated from the surface model. They describe the shape of each roof and are used in our model and in the suitability rules.
-
-::::{tab-set}
-
-:::{tab-item} Slope
-How steep each cell is, in degrees. A flat roof is close to 0° and a wall is close to 90°.
-
-```{figure} Images/slope.png
-:label: fig-slope
-:width: 100%
-:alt: Slope maps of the Sandy Bay and Howrah test areas side by side
-
-Slope in degrees for the Sandy Bay (left) and Howrah (right) test areas.
-```
-:::
-
-:::{tab-item} Aspect
-The compass direction each cell faces. In Hobart, north-facing roofs get the most sun.
-
-```{figure} Images/aspect.png
-:label: fig-aspect
-:width: 100%
-:alt: Aspect maps of the Sandy Bay and Howrah test areas side by side
-
-Aspect in degrees clockwise from north for the Sandy Bay (left) and Howrah (right) test areas.
-```
-:::
-
-:::{tab-item} Roughness
-How bumpy the surface is around each cell. A clean roof face is smooth. Chimneys, skylights, roof edges and overhanging trees show up as rough.
-
-```{figure} Images/roughness.png
-:label: fig-roughness
-:width: 100%
-:alt: Roughness maps of the Sandy Bay and Howrah test areas side by side
-
-Surface roughness for the Sandy Bay (left) and Howrah (right) test areas.
-```
-:::
-
-::::
 
 ### Surface model
 
-We first tried a coarser digital elevation model, but it couldn't pick up the shape of individual roofs. We downloaded a LiDAR point cloud from ELVIS and built a 0.5 m digital surface model in ArcGIS Pro. A surface model gives the height of whatever is on top, so it includes roofs and trees and not just the ground.
+We first tried a 1m digital elevation model, but it couldn't identify the shape of individual roofs. We downloaded a LiDAR point cloud from ELVIS and built a 0.5 m digital surface model in ArcGIS Pro. A surface model gives the height of whatever is on top, so it includes roofs and trees and not just the ground.
 
-**Add in details on ELVIS**
-
-| Setting | Value |
-|---|---|
-| Points used | First returns, noise removed |
-| Interpolation | Binning, maximum value in each cell |
-| Gap filling | Linear |
-| Cell size | 0.5 m |
-
-Trees were left in the surface model. Both models use the same one, so trees are treated the same way in each.
 
 ### Building footprints
 
-The study area crosses two council areas, so the Hobart and Clarence building layers were joined into one. The joined layer was reprojected, clipped to the study area and cut down to the columns we needed.
+The study area crosses two council areas, so the Hobart and Clarence building layers were joined into one. The joined layer was reprojected, and clipped to the study area.
 
 
 ### Weather data
 
-The weather file is a typical year of hourly data from the Hobart Ellerslie Road station. Adding up GHI for the year gave 1,424 kWh/m². Most of that falls in summer ([](#fig-monthly-ghi)), which is why roof direction matters so much in Hobart. In winter the sun sits low in the northern sky, so a north-facing roof picks up a lot more than a south-facing one.
+The weather file is a projected typical year of hourly data from the Hobart Ellerslie Road station. Adding up GHI for the year gave 1,424 kWh/m². Most of that falls in summer ([](#fig-monthly-ghi)), which is why roof direction matters so much in Hobart. As a check, we compared this with the Global Solar Atlas value for the same location, which was 1,353 kWh/m².
 
 ```{figure} Images/monthly_ghi.png
 :label: fig-monthly-ghi
@@ -133,44 +83,80 @@ Monthly global horizontal irradiance at Hobart Ellerslie Road.
 ```
 
 
-### Global Solar Atlas
+### Subsets
 
-To check the weather file was accurate, we compared its yearly total with the Global Solar Atlas value at the same location. The weather file gave 1,424 kWh/m² and the atlas gave 1,353 kWh/m². 
-
-
-### Test areas
-
-SEBE could not process the full study area at 0.5 m, so we created two 600 m × 600 m samples out of the prepared data, one in Sandy Bay and one in Howrah. Both models were run on the same two samples so the results could be compared cell by cell. 
-In the Sandy Bay Subset there were 581 buildings and in the Howrah subset there were 279 buildings. 
+SEBE could not process the full study area at 0.5 m, so we created two 600 m × 600 m subsets out of the prepared data, one in Sandy Bay and one in Howrah. Both models were run on the same two samples so the results could be compared accurately. 
+In the Sandy Bay Subset there were 484 buildings and in the Howrah subset there were 257 buildings. 
 
 
 ## The two models
 
+
+::::::{tab-set}
+
+:::::{tab-item} Our Python model
+Our model works out how much sunlight lands on every 0.5 m cell over a year. It adds up three parts: direct sunlight, diffuse sunlight from the sky, and sunlight reflected off the ground.
+
+**1. Surface characteristics.** Slope, aspect and roughness were calculated from the surface model with GDAL. Slope and aspect go into the model. Roughness was calculated but not used in the end.
+
 ::::{tab-set}
 
-:::{tab-item} Our Python model
-Our model works out how much sunlight lands on each 0.5 m cell of roof, using its slope and the direction it faces.
+:::{tab-item} Slope
+How steep each cell is, in degrees. A flat roof is close to 0° and a wall is close to 90°.
 
-```{mermaid}
-flowchart TD
-  A[Surface model] --> B[Slope]
-  A --> C[Aspect]
-  D[Hourly GHI, DNI, DHI] --> E[Sun position each hour]
-  B --> F[Radiation on each tilted cell]
-  C --> F
-  E --> F
-  F --> G[Add up the year]
-  G --> H[Average per roof]
+```{figure} Images/slope.png
+:label: fig-slope
+:width: 100%
+:alt: Slope maps of the Sandy Bay and Howrah subsets side by side
+
+Slope in degrees for the Sandy Bay (left) and Howrah (right) subsets.
 ```
-
-**Slope and aspect.** Slope is how steep each cell is, and aspect is the compass direction it faces. Both were calculated from the surface model.
-
-**Need to descrbe each step of the model**
-
 :::
 
-:::{tab-item} SEBE
-SEBE (Solar Energy on Building Envelopes) is a model in the UMEP plugin for QGIS. It uses the surface model to cast shadows for each hour of the year, so a roof that is shaded by a neighbouring building, a tree or a slope gets less radiation. It also splits the sky into patches so diffuse light is counted from the parts of the sky each cell can see.
+:::{tab-item} Aspect
+The compass direction each cell faces.
+
+```{figure} Images/aspect.png
+:label: fig-aspect
+:width: 100%
+:alt: Aspect maps of the Sandy Bay and Howrah subsets side by side
+
+Aspect in degrees clockwise from north for the Sandy Bay (left) and Howrah (right) subsets.
+```
+:::
+
+:::{tab-item} Roughness
+How bumpy the surface is around each cell. A clean roof face is smooth, and chimneys, roof edges and trees show up as rough.
+
+```{figure} Images/roughness.png
+:label: fig-roughness
+:width: 100%
+:alt: Roughness maps of the Sandy Bay and Howrah subsets side by side
+
+Surface roughness for the Sandy Bay (left) and Howrah (right) subsets.
+```
+:::
+
+::::
+
+**2. Sun position.** For every hour in the weather file, pvlib works out where the sun is in the sky: how high it is and its compass direction.
+
+**3. Typical day.** Casting shadows for every hour of the year takes too long at 0.5 m. We used the sun's position on the 15th of each month as a typical day for that month.
+
+**4. Shadows.** For each daylight hour of the typical day, WhiteboxTools works out how high the skyline is in the direction of the sun. If the skyline is higher than the sun, the cell is in shadow.
+
+**5. Direct sunlight.** For each hour, the direct sunlight from every day in that month is added up, scaled by how directly the cell faces the sun, and set to zero where the cell is in shadow.
+
+**6. Diffuse sunlight.** The sky is treated as equally bright everywhere. A flat cell sees the whole sky, and a tilted cell sees less of it.
+
+**7. Reflected sunlight.** Tilted cells also pick up some sunlight bounced off the ground. We used an albedo of 0.15, the same as SEBE.
+
+**8. Yearly total.** The three parts are added together and converted to kWh/m².
+
+:::::
+
+:::::{tab-item} SEBE
+SEBE (Solar Energy on Building Envelopes) is a solar model in the UMEP plugin for QGIS (Lindberg et al., 2015). It uses the surface model and a weather file to work out how much sunlight reaches each cell over a year, taking into account shading from nearby buildings and trees.
 
 ```{mermaid}
 flowchart TD
@@ -180,59 +166,46 @@ flowchart TD
   B --> E
   D --> E
   E --> F[Annual radiation raster]
-  F --> G[Average per roof]
 ```
 
-**JANE: please add SEBE input details here (how the wall height and aspect rasters and the met file were made, plus albedo, UTC offset and any other settings)**
-:::
+SEBE was run with the same surface model and the same weather file as our model. The albedo was 0.15, the UTC offset was 10 and the vegetation scheme was turned off, because the trees are already in the surface model.
 
-::::
+**JANE: please add SEBE input details here (how the wall height and aspect rasters and the met file were made, and any other settings)**
 
-:::{dropdown} Slope and aspect
-```python
-# Calculates slope raster in degrees
-gdal.DEMProcessing(str(slope_path), str(dsm_path), "slope", slopeFormat="degree")
+:::::
 
-# Calculates aspect raster in degrees clockwise from north
-gdal.DEMProcessing(str(aspect_path), str(dsm_path), "aspect")
-```
-:::
+::::::
 
-
-## Suitability criteria
-
-High sunlight doesn't always mean a panel can go there. We set six rules, and a cell only counts as suitable if it passes all of them.
-
-| Rule | Limit | Why | Source |
-|---|---|---|---|
-| Inside a building footprint | n/a | Only roofs count, not ground or trees | n/a |
-| Slope | Below [ ]° | Very steep cells are walls or roof edges | [ ] |
-| Aspect | Not facing [ ] on tilted roofs | South faces get the least sun in Hobart | [ ] |
-| Roughness | Below [ ] | Removes chimneys, edges and clutter | [ ] |
-| Yearly sunlight | Above [ ] kWh/m² | Enough sun to be worth it | [ ] |
-| Suitable area per roof | At least [ ] m² | A panel needs a patch of space | [ ] |
-
-```{mermaid}
-flowchart LR
-  A[Yearly sunlight per cell] --> B[Apply the six rules]
-  B --> C[Suitable or not suitable map]
-  C --> D[Suitable roof area per building]
-
-  classDef output fill:#d9ead3,stroke:#38761d,color:#000
-  class C,D output
-```
 
 
 ## How the models differ
 
 | | Our model | SEBE |
 |---|---|---|
-| Software | Python | QGIS (UMEP) |
+| Software | Python (GDAL, pvlib, WhiteboxTools) | QGIS (UMEP) |
 | Roof slope and direction | Yes | Yes |
-| Shading from buildings and trees | [Yes/No] | Yes |
-| Reflected radiation | [Yes/No] | Yes |
-| What else?|||
+| Sun positions | Typical day for each month | Sky patches covering the whole year |
+| Shading of direct sunlight | Yes | Yes |
+| Shading of diffuse sunlight | No | Yes |
+| Sky | Equally bright everywhere | 145 patches |
+| Reflected sunlight | From the ground only | From the ground and walls |
+
+
+## Suitability criteria
+
+A cell getting plenty of sun is not always somewhere a panel can go. It might be a tree, a wall or the ground. We set three rules, and a cell only counts as suitable if it passes all of them.
+
+| Rule | Limit | Why | Source |
+|---|---|---|---|
+| On a building | Inside a building footprint | Only roofs count, not ground or trees | LIST building footprints |
+| Not a wall | Slope of 65° or less | Steeper cells are walls or roof edges | UMEP SEBE tutorial |
+| Enough sun | At least 80% of the yearly sunlight on unshaded flat surface | Leaves out shaded and poorly angled roof | Roberts, Copper and Bruce (2018) |
+
+There is no separate rule for aspect or shading. South-facing and shaded cells get less sun, so they already fail the sunlight rule. Roughness was also left out, because we could not find a limit to cite for it and steep roof edges are already removed by the slope rule.
+
+The suitable cells were then added up for each building. A building was counted as viable if it had at least 10 m² of suitable roof, which is about the space a small system needs. We also worked out the share of each roof that was suitable, so large buildings would not look better just for being large.
+
 
 ## How we compared them
 
-Both models produce a raster of annual radiation in kWh/m² for the same cells. We averaged each raster inside every building footprint to get one value per roof from each model, then compared them.
+Both models produce a raster of yearly sunlight in kWh/m² for the same cells. The rasters were averaged inside each building footprint in QGIS, giving one value per roof from each model, and the two sets of values were compared.

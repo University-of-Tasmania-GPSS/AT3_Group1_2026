@@ -1,26 +1,47 @@
 # Conclusion
 
-I am a book about ... something! Wikipedia has [information about books](wiki:book): hover over the link for more information.
+## Transfer from Methods that need to go results
 
-% An admonition containing a note
-:::{note}
-Books are usually written on paper ... But Jupyter Book can create _websites_!
+### Surface Characteristics
+
+Three layers were calculated from the surface model. They describe the shape of each roof and are used in our model and in the suitability rules.
+
+::::{tab-set}
+
+:::{tab-item} Slope
+How steep each cell is, in degrees. A flat roof is close to 0° and a wall is close to 90°.
+
+```{figure} Images/slope.png
+:label: fig-slope
+:width: 100%
+:alt: Slope maps of the Sandy Bay and Howrah test areas side by side
+
+Slope in degrees for the Sandy Bay (left) and Howrah (right) test areas.
+```
 :::
 
-If you sold 100 books at \$10 per book, you'd have \$1000 dollars according to [](#eq:book). If instead you publish your Jupyter Book to the web for free, you'd have \$0 dollars!
+:::{tab-item} Aspect
+The compass direction each cell faces. In Hobart, north-facing roofs get the most sun.
 
-% An arbitrary math equation
-:::{math}
-:name: eq:book
+```{figure} Images/aspect.png
+:label: fig-aspect
+:width: 100%
+:alt: Aspect maps of the Sandy Bay and Howrah test areas side by side
 
-x \times y = z
+Aspect in degrees clockwise from north for the Sandy Bay (left) and Howrah (right) test areas.
+```
 :::
 
-Sometimes when reading it is helpful to foster a _tranquil_ environment. The image in [](#fig:mountains) would be a perfect spot!
+:::{tab-item} Roughness
+How bumpy the surface is around each cell. A clean roof face is smooth. Chimneys, skylights, roof edges and overhanging trees show up as rough.
 
-% A figure of a photograph of some mountains, followed by a caption
-:::{figure} https://github.com/rowanc1/pics/blob/main/mountains.png?raw=true
-:label: fig:mountains
+```{figure} Images/roughness.png
+:label: fig-roughness
+:width: 100%
+:alt: Roughness maps of the Sandy Bay and Howrah test areas side by side
 
-A photograph of some beautiful mountains to look at whilst reading.
+Surface roughness for the Sandy Bay (left) and Howrah (right) test areas.
+```
 :::
+
+::::

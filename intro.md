@@ -2,22 +2,24 @@
 
 ## Background
 
-People in Hobart often say the Eastern Shore is the sunnier side of the river. Hobart sits at about 43°S, so the sun stays low in the sky through winter, and kunanyi/Mt Wellington rises behind the western suburbs. Both of these change how much sunlight a roof gets, which matters for anyone thinking about putting solar panels on their house.
-
-The increase in uptake of solar panels as a source of renewable energy has increased substantially over the last twenty years, and Tasmania, despite its southern latitude and shorter winter sunlight hours, has followed that trend.
+The uptake of solar panels as a source of renewable energy has increased substantially over the last twenty years, and Tasmania, despite its southern latitude and shorter winter sunlight hours, has followed that trend ([](#fig-tas-solar)).
 
 ```{figure} Images/tasmania_solar_consumption.png
-:label: fig-tasmania_solar_consumption
+:label: fig-tas-solar
 :width: 80%
 :alt: Line chart showing Tasmanian solar energy consumption over time, with a steadily rising trend from the early 2000s to the present. The graph presents annual estimated household solar generation based on average feed in tariffs rather than total electricity consumed, using data from the Australian Bureau of Statistics. 
 ```
 
-[Australian household solar electricity](https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy)
+Estimated household solar electricity generation in Tasmania. Source: [Australian Bureau of Statistics](https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy).
+```
+How much sunlight a roof gets depends on its slope, the direction it faces and what shades it. In Hobart the sun stays low in the sky through winter, so a north-facing roof can collect far more than a south-facing one on the same house. 
+
+A solar model gives one number for every small patch of roof: the solar radiation that lands on it over a year, measured in kilowatt hours per square metre (kWh/m²). For scale, open flat ground in Hobart gets about 1,400 kWh/m² a year (Global Solar Atlas, 2024). A well-angled, unshaded roof gets more than that, and a shaded or south-facing one gets a lot less. This number is the sunlight arriving at the roof, not the electricity a panel would make.
 
 
 ## Project overview
 
-This project estimates how much solar radiation rooftops on the western and eastern shores of Greater Hobart receive over a year, and which roofs are best suited to solar panels. We built our own simplified model in Python and compared it against the SEBE model in UMEP to see where the two agree and where they differ.
+This project compares two ways of modelling how much solar radiation rooftops receive over a year.  We built our own simplified model in Python and compared it against the SEBE model in UMEP to see where the two agree and where they differ. We then used our model to pick out which parts of each roof are suited to solar panels.
 
 
 ## Aim and objectives
@@ -31,35 +33,16 @@ The aim of this project was to build a simple rooftop solar model in Python and 
 
 ## Study area
 
-We started with one large study area running from Hobart's western suburbs across the River to the Eastern Shore ([](#fig-extent)). The plan was to cover both sides of the river in one go.
+We started with one large study area running from Hobart's western suburbs across the River to the Eastern Shore (red outline in [](#fig-extent)). The plan was to cover both sides of the river in one go, however, at 0.5 m resolution this was too large to run through SEBE, and too large to run through our Python model in the detail we wanted.
 
-At 0.5 m resolution the full area was too large for SEBE to process, so we picked two 600 m × 600 m samples inside it: Sandy Bay on the western shore ([](#fig-west)) and Howrah on the eastern shore ([](#fig-east)). Having one on each side gave us two different settings to test the models in. The main comparison in this project is between the two models, not the two shores.
+So we chose two 600 m × 600 m subsets inside it, Sandy Bay on the western shore (yellow) and Howrah on the eastern shore (green). Both subsets were run through both models in exactly the same way. 
 
-```{figure} Images/study_extent.png
+Having one on each side of the river means a difference between the two shores might show up in the results, but that is not the focus of this project. The main comparison is between the two models.
+
+```{figure} Images/StudyArea.png
 :label: fig-extent
 :width: 90%
-:alt: Map of the full study extent across Hobart with the two test areas marked
+:alt: Map of Hobart showing the original study area in red, the Sandy Bay subset in yellow and the Howrah subset in green
 
-Original study extent across Hobart, with the Sandy Bay and Howrah test areas outlined.
+Original study area (red), with the Sandy Bay subset (yellow) and the Howrah subset (green). Each subset is 600 m × 600 m.
 ```
-
-```{figure} Images/west_area.png
-:label: fig-west
-:width: 80%
-:alt: Map of the Sandy Bay test area on the western shore
-
-Western test area, Sandy Bay (600 m × 600 m).
-```
-
-```{figure} Images/east_area.png
-:label: fig-east
-:width: 80%
-:alt: Map of the Howrah test area on the eastern shore
-
-Eastern test area, Howrah (600 m × 600 m).
-```
-
-
-## Our approach
-
-We converted LiDAR point clouds into surface models, worked out the slope and aspect of each roof, and modelled the solar radiation reaching them across a year. The same areas were then run through SEBE so the two sets of results could be compared. The full workflow is on the [Methods](methods.md) page.
