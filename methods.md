@@ -160,9 +160,9 @@ flowchart TD
   E --> F[Annual radiation raster]
 ```
 
-SEBE was run with the same surface model and the same weather file as our model. The albedo was 0.15, the UTC offset was 10 and the vegetation scheme was turned off, because the trees are already in the surface model.
+The weather file was converted to UMEP's text format with the UMEP pre-processing tool. The same tool set was used to make wall height and wall aspect rasters from each subset's surface model, leaving out walls lower than 3 m. SEBE was then run on these layers to estimate solar radiation for a typical year.
 
-**JANE: please add SEBE input details here (how the wall height and aspect rasters and the met file were made, and any other settings)**
+SEBE would not run in current versions of QGIS at first, because of a NumPy version problem in the sun position step. A small patch to the plugin code fixed this, and SEBE was run on one computer.
 
 ::::
 
@@ -184,4 +184,8 @@ SEBE was run with the same surface model and the same weather file as our model.
 
 ## How we compared them
 
-Both models produce a raster of yearly sunlight in kWh/m² for the same cells. The rasters were averaged inside each building footprint in QGIS, giving one value per roof from each model, and the two sets of values were compared.
+Both models produce a raster of yearly sunlight in kWh/m² for the same cells. A sloped roof has more surface than it appears to from above, so each cell's area was corrected for slope before adding up:
+
+Actual area = cell area / cos(slope)
+
+The cell area is 0.25 m² (0.5 m × 0.5 m). Zonal statistics in QGIS were then used to add up the yearly sunlight on each building's roof. The same steps were applied to the SEBE output and to our Python model output, so the two could be compared roof by roof. The results were mapped in five classes using natural breaks (Jenks).
