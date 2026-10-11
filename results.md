@@ -23,22 +23,26 @@ Values are in kWh/m² per year.
 
 JANE: SEBE map and summary numbers go here
 
+
 ## Model comparison
 
 ```{figure} Images/Sum zonal comparisons2.png
-:label: fig-Zonal statistics- 'sum' applied to Python model
+:label: fig-zonal-python
 :width: 100%
-:alt: 
+:alt: Maps of total yearly sunlight per roof from the Python model for the Sandy Bay and Howrah subsets
 
-```
-``{figure} Images/Sum zonal comparisonsSEBE.png
-:label: fig-Zonal statistics- 'sum' applied to SEBE model
-:width: 100%
-:alt: 
-
+Total yearly sunlight on each roof from our Python model, for the Sandy Bay (left) and Howrah (right) subsets. Values are the zonal sum for each building in kWh per year, shown in five natural breaks classes.
 ```
 
-JANE: difference maps and how close the two models were
+```{figure} Images/Sum zonal comparisonsSEBE.png
+:label: fig-zonal-sebe
+:width: 100%
+:alt: Maps of total yearly sunlight per roof from SEBE for the Sandy Bay and Howrah subsets
+
+Total yearly sunlight on each roof from SEBE, for the Sandy Bay (left) and Howrah (right) subsets. Values are the zonal sum for each building in kWh per year, shown in five natural breaks classes.
+```
+
+% JANE: difference maps and how close the two models were
 
 
 ## Suitable roof area
