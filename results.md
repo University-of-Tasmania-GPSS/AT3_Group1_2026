@@ -21,7 +21,37 @@ Values are in kWh/m² per year.
 
 ## SEBE
 
-JANE: SEBE map and summary numbers go here
+```{figure} Images/SEBE_vs_Python_graphs.png
+:label: fig-Zonal statistics- comparison between our Python and SEBE model following mean, count and sum calculations.
+:width: 100%
+:alt: 
+
+```
+
+### SEBE vs Python model: West and East (per-roof means, kWh/m²/year)
+
+| Metric | West | East |
+|:--|--:|--:|
+| Number of roofs | 581 | 279 |
+| SEBE mean | 1,334.4 | 1,253.3 |
+| Python mean | 1,459.0 | 1,376.7 |
+| SEBE median | 1,351.0 | 1,307.5 |
+| Python median | 1,470.2 | 1,414.3 |
+| Bias (Python − SEBE) | +124.7 | +123.4 |
+| MAE | 124.7 | 123.4 |
+| RMSE | 130.9 | 129.3 |
+| NMBE (% of SEBE mean) | 9.3% | 9.8% |
+| NRMSE (% of SEBE mean) | 9.8% | 10.3% |
+| Median % difference | 8.7% | 8.7% |
+| Pearson r | 0.956 | 0.981 |
+| R² | 0.914 | 0.963 |
+| Regression slope | 0.872 | 0.835 |
+| Regression intercept | 295.8 | 330.5 |
+| Spearman ρ | 0.949 | 0.943 |
+| Roofs where Python > SEBE | 581 of 581 | 279 of 279 |
+| Wilcoxon p-value | 7.5e-97 | 1.7e-47 |
+
+*Positive bias = Python model higher than SEBE. Values converted from kWh per 0.5 m cell per year (÷ 0.25 m²).*
 
 ## Model comparison
 
