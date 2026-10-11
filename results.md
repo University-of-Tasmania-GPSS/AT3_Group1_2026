@@ -22,14 +22,17 @@ Values are in kWh/m² per year.
 
 ## SEBE
 
-```{figure} Images/SEBE_vs_Python_graphs.png
-:label: fig-Zonal statistics- comparison between our Python and SEBE model following mean, count and sum calculations.
-:width: 100%
-:alt: 
 
-```
 
 ### SEBE vs Python model: West and East (per-roof means, kWh/m²/year)
+
+```{figure} Images/SEBE_vs_Python_graphs.png
+:label: fig-model-graphs
+:width: 100%
+:alt: Graphs comparing the Python model and SEBE using the mean, count and sum for each building
+
+Comparison of our Python model and SEBE using zonal statistics, showing the mean, count and sum for each building.
+```
 
 | Metric | West | East |
 |:--|--:|--:|
