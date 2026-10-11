@@ -7,12 +7,12 @@ The uptake of solar panels as a source of renewable energy has increased substan
 ```{figure} Images/tasmania_solar_consumption.png
 :label: fig-tas-solar
 :width: 80%
-:alt: Line chart showing Tasmanian solar energy consumption over time, with a steadily rising trend from the early 2000s to the present. The graph presents annual estimated household solar generation based on average feed in tariffs rather than total electricity consumed, using data from the Australian Bureau of Statistics. 
+:alt: Bar chart of the annual value of household solar electricity in Tasmania, rising from near zero in 2004-05 to 15.8 million dollars in 2024-25
+
+Annual value of household solar electricity in Tasmania, 2004-05 to 2024-25 ($ million). Source: [Australian Bureau of Statistics](https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy).
 ```
 
-Estimated household solar electricity generation in Tasmania. Source: [Australian Bureau of Statistics](https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy).
-```
-How much sunlight a roof gets depends on its slope, the direction it faces and what shades it. In Hobart the sun stays low in the sky through winter, so a north-facing roof can collect far more than a south-facing one on the same house. 
+How much sunlight a roof gets depends on its slope, the direction it faces and what shades it. In Hobart the sun stays low in the sky through winter, so a north-facing roof can collect far more than a south-facing one on the same house.
 
 A solar model gives one number for every small patch of roof: the solar radiation that lands on it over a year, measured in kilowatt hours per square metre (kWh/m²). For scale, open flat ground in Hobart gets about 1,400 kWh/m² a year (Global Solar Atlas, 2024). A well-angled, unshaded roof gets more than that, and a shaded or south-facing one gets a lot less. This number is the sunlight arriving at the roof, not the electricity a panel would make.
 

@@ -15,7 +15,6 @@ flowchart TD
 
   H[Annual radiation per roof]
   J[Our model vs SEBE]
-  K[Suitable Roof Area]
 
   A --> D
   D --> F
@@ -26,8 +25,6 @@ flowchart TD
   F --> H
   G --> H
   H --> J
-  F --> K
-  B --> K
 
   classDef input fill:#cfe2f3,stroke:#3d85c6,color:#000
   classDef process fill:#eeeeee,stroke:#666666,color:#000
@@ -39,7 +36,7 @@ flowchart TD
   class D process
   class F python
   class G sebe
-  class H,J,K output
+  class H,J output
 ```
 Blue boxes are input data, yellow is our model, pink is SEBE and green boxes are outputs.
 
@@ -91,17 +88,14 @@ In the Sandy Bay Subset there were 484 buildings and in the Howrah subset there 
 
 ## The two models
 
+:::::{tab-set}
 
-::::::{tab-set}
-
-:::::{tab-item} Our Python model
+::::{tab-item} Our Python model
 Our model works out how much sunlight lands on every 0.5 m cell over a year. It adds up three parts: direct sunlight, diffuse sunlight from the sky, and sunlight reflected off the ground.
 
 **1. Surface characteristics.** Slope, aspect and roughness were calculated from the surface model with GDAL. Slope and aspect go into the model. Roughness was calculated but not used in the end.
 
-::::{tab-set}
-
-:::{tab-item} Slope
+:::{dropdown} Slope
 How steep each cell is, in degrees. A flat roof is close to 0° and a wall is close to 90°.
 
 ```{figure} Images/slope.png
@@ -113,7 +107,7 @@ Slope in degrees for the Sandy Bay (left) and Howrah (right) subsets.
 ```
 :::
 
-:::{tab-item} Aspect
+:::{dropdown} Aspect
 The compass direction each cell faces.
 
 ```{figure} Images/aspect.png
@@ -125,7 +119,7 @@ Aspect in degrees clockwise from north for the Sandy Bay (left) and Howrah (righ
 ```
 :::
 
-:::{tab-item} Roughness
+:::{dropdown} Roughness
 How bumpy the surface is around each cell. A clean roof face is smooth, and chimneys, roof edges and trees show up as rough.
 
 ```{figure} Images/roughness.png
@@ -136,8 +130,6 @@ How bumpy the surface is around each cell. A clean roof face is smooth, and chim
 Surface roughness for the Sandy Bay (left) and Howrah (right) subsets.
 ```
 :::
-
-::::
 
 **2. Sun position.** For every hour in the weather file, pvlib works out where the sun is in the sky: how high it is and its compass direction.
 
@@ -153,9 +145,9 @@ Surface roughness for the Sandy Bay (left) and Howrah (right) subsets.
 
 **8. Yearly total.** The three parts are added together and converted to kWh/m².
 
-:::::
+::::
 
-:::::{tab-item} SEBE
+::::{tab-item} SEBE
 SEBE (Solar Energy on Building Envelopes) is a solar model in the UMEP plugin for QGIS (Lindberg et al., 2015). It uses the surface model and a weather file to work out how much sunlight reaches each cell over a year, taking into account shading from nearby buildings and trees.
 
 ```{mermaid}
@@ -172,10 +164,9 @@ SEBE was run with the same surface model and the same weather file as our model.
 
 **JANE: please add SEBE input details here (how the wall height and aspect rasters and the met file were made, and any other settings)**
 
+::::
+
 :::::
-
-::::::
-
 
 
 ## How the models differ
