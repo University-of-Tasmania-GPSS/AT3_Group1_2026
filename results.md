@@ -1,26 +1,45 @@
 # Results
 
-I am a book about ... something! Wikipedia has [information about books](wiki:book): hover over the link for more information.
+## Python model
 
-% An admonition containing a note
-:::{note}
-Books are usually written on paper ... But Jupyter Book can create _websites_!
-:::
+[One or two sentences on what the map shows.]
 
-If you sold 100 books at \$10 per book, you'd have \$1000 dollars according to [](#eq:book). If instead you publish your Jupyter Book to the web for free, you'd have \$0 dollars!
+```{figure} Images/yearly_sunlight_roofs.png
+:label: fig-yearly-sunlight
+:width: 100%
+:alt: Maps of yearly sunlight from our model for the Sandy Bay and Howrah subsets
 
-% An arbitrary math equation
-:::{math}
-:name: eq:book
+Yearly sunlight from our Python model for the Sandy Bay (left) and Howrah (right) subsets, in kWh/m².
+```
 
-x \times y = z
-:::
+| | Lowest | Middle | Highest |
+|---|---|---|---|
+| Sandy Bay | 384 | 1,181 | 1,597 |
+| Howrah | 385 | 1,038 | 1,596 |
 
-Sometimes when reading it is helpful to foster a _tranquil_ environment. The image in [](#fig:mountains) would be a perfect spot!
+Values are in kWh/m² per year.
 
-% A figure of a photograph of some mountains, followed by a caption
-:::{figure} https://github.com/rowanc1/pics/blob/main/mountains.png?raw=true
-:label: fig:mountains
+## SEBE
 
-A photograph of some beautiful mountains to look at whilst reading.
-:::
+JANE: SEBE map and summary numbers go here
+
+## Model comparison
+
+JANE: difference maps and how close the two models were
+
+## Suitable roof area
+
+About two thirds of the roof area in both subsets was suitable for solar panels ([](#fig-suitable)). Almost every building had at least 10 m² of suitable roof.
+
+```{figure} Images/suitable_roof_area.png
+:label: fig-suitable
+:width: 100%
+:alt: Maps of suitable roof area for the Sandy Bay and Howrah subsets
+
+Roof area suitable for solar panels (orange) and not suitable (grey) in the Sandy Bay (left) and Howrah (right) subsets.
+```
+
+| | Roof area | Suitable area | Share | Viable buildings |
+|---|---|---|---|---|
+| Sandy Bay | 76,412 m² | 53,279 m² | 70% | 479 of 484 |
+| Howrah | 45,217 m² | 30,504 m² | 67% | 249 of 257 |
