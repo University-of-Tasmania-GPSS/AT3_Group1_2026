@@ -63,8 +63,3 @@ The suitable parts are mostly the north-facing side of each roof, with south-fac
 
 Roof area suitable for solar panels (orange) and not suitable (grey) in the Sandy Bay (left) and Howrah (right) subsets.
 ```
-
-| | Roof area | Suitable area | Share | Viable buildings |
-|---|---|---|---|---|
-| Sandy Bay | 76,412 m² | 53,279 m² | 70% | 479 of 484 |
-| Howrah | 45,217 m² | 30,504 m² | 67% | 249 of 257 |

@@ -24,17 +24,8 @@ There is no separate rule for aspect or shading. South-facing and shaded cells g
 The suitable cells were then added up for each building. A building was counted as viable if it had at least 10 m² of suitable roof, which is about the space a small system needs. We also worked out the share of each roof that was suitable, so large buildings would not look better just for being large.
 
 
-## Suitable roof area
 
-About two thirds of the roof area in both subsets was suitable for solar panels ([](#fig-suitable)). Almost every building had at least 10 m² of suitable roof.
 
-```{figure} Images/suitable_roof_area.png
-:label: fig-suitable
-:width: 100%
-:alt: Maps of suitable roof area for the Sandy Bay and Howrah subsets
-
-Roof area suitable for solar panels (orange) and not suitable (grey) in the Sandy Bay (left) and Howrah (right) subsets.
-```
 
 | | Roof area | Suitable area | Share | Viable buildings |
 |---|---|---|---|---|
