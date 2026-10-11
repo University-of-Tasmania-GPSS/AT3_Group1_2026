@@ -6,11 +6,12 @@ People in Hobart often say the Eastern Shore is the sunnier side of the river. H
 
 The increase in uptake of solar panels as a source of renewable energy has increased substantially over the last twenty years, and Tasmania, despite its southern latitude and shorter winter sunlight hours, has followed that trend.
 
-```{figure}![chart](images/tasmania_solar_consumption(1).png)
-:label: fig-extent
-:width: 90%
+```{figure} Images/tasmania_solar_consumption.png
+:label: fig-tasmania_solar_consumption
+:width: 80%
 :alt: Line chart showing Tasmanian solar energy consumption over time, with a steadily rising trend from the early 2000s to the present. The graph presents annual estimated household solar generation based on average feed in tariffs rather than total electricity consumed, using data from the Australian Bureau of Statistics. 
 ```
+
 [Australian household solar electricity](https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy)
 
 
