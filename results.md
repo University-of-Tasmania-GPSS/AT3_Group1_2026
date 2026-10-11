@@ -41,7 +41,6 @@ JANE: SEBE map and summary numbers go here
 JANE: difference maps and how close the two models were
 
 
-
 ## Suitable roof area
 
 About two thirds of the roof area in both subsets was suitable for solar panels ([](#fig-suitable)). Almost every building had at least 10 m² of suitable roof.

@@ -160,9 +160,9 @@ flowchart TD
   E --> F[Annual radiation raster]
 ```
 
-SEBE was run with the same surface model and the same weather file as our model. The albedo was 0.15, the UTC offset was 10 and the vegetation scheme was turned off, because the trees are already in the surface model.
+The weather file was converted to UMEP's text format with the UMEP pre-processing tool. The same tool set was used to make wall height and wall aspect rasters from each subset's surface model, leaving out walls lower than 3 m. SEBE was then run on these layers to estimate solar radiation for a typical year.
 
-**JANE: please add SEBE input details here (how the wall height and aspect rasters and the met file were made, and any other settings)**
+SEBE would not run in current versions of QGIS at first, because of a NumPy version problem in the sun position step. A small patch to the plugin code fixed this, and SEBE was run on one computer.
 
 ::::
 
@@ -182,21 +182,10 @@ SEBE was run with the same surface model and the same weather file as our model.
 | Reflected sunlight | From the ground only | From the ground and walls |
 
 
-## Suitability criteria
-
-A cell getting plenty of sun is not always somewhere a panel can go. It might be a tree, a wall or the ground. We set three rules, and a cell only counts as suitable if it passes all of them.
-
-| Rule | Limit | Why | Source |
-|---|---|---|---|
-| On a building | Inside a building footprint | Only roofs count, not ground or trees | LIST building footprints |
-| Not a wall | Slope of 65° or less | Steeper cells are walls or roof edges | UMEP SEBE tutorial |
-| Enough sun | At least 80% of the yearly sunlight on unshaded flat surface | Leaves out shaded and poorly angled roof | Roberts, Copper and Bruce (2018) |
-
-There is no separate rule for aspect or shading. South-facing and shaded cells get less sun, so they already fail the sunlight rule. Roughness was also left out, because we could not find a limit to cite for it and steep roof edges are already removed by the slope rule.
-
-The suitable cells were then added up for each building. A building was counted as viable if it had at least 10 m² of suitable roof, which is about the space a small system needs. We also worked out the share of each roof that was suitable, so large buildings would not look better just for being large.
-
-
 ## How we compared them
 
-Both models produce a raster of yearly sunlight in kWh/m² for the same cells. The rasters were averaged inside each building footprint in QGIS, giving one value per roof from each model, and the two sets of values were compared.
+Both models produce a raster of yearly sunlight in kWh/m² for the same cells. A sloped roof has more surface than it appears to from above, so each cell's area was corrected for slope before adding up:
+
+Actual area = cell area / cos(slope)
+
+The cell area is 0.25 m² (0.5 m × 0.5 m). Zonal statistics in QGIS were then used to add up the yearly sunlight on each building's roof. The same steps were applied to the SEBE output and to our Python model output, so the two could be compared roof by roof. The results were mapped in five classes using natural breaks (Jenks).
