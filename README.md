@@ -131,6 +131,6 @@ Claude.ai was used during this project to:
 - Troubleshoot problems, including:
   - identifying bugs and errors in our code
   - fixing errors with SEBE model in QGIS
-- Adapt example code from other sources to fit our data and model
+- Help adapt example code from other sources to fit our data and model
 - Tidy code to follow PEP 8
 - Draft and edit the markdown explanations in the notebooks
