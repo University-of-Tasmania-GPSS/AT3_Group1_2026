@@ -5,7 +5,7 @@ Both models were run on the same 0.5 m surface models and the same weather file 
 ## Sandy Bay
 
 ::::{tab-set}
-:::{tab-item} Python model
+:::{tab-item} Yearly Sunlight
 ![Sandy Bay, yearly sunlight from the Python model](Images/west_yearly.png)
 :::
 :::{tab-item} Roofs: Python model
@@ -17,15 +17,17 @@ Both models were run on the same 0.5 m surface models and the same weather file 
 :::{tab-item} Difference
 ![Sandy Bay, Python model minus SEBE](Images/west_difference.png)
 :::
-:::{tab-item} Suitable roof (Python model)
+:::{tab-item} Suitable roof
 ![Sandy Bay, suitable roof](Images/west_suitable.png)
 :::
 ::::
 
+* Analysis here
+
 ## Howrah
 
 ::::{tab-set}
-:::{tab-item} Python model
+:::{tab-item} Yearly Sunlight
 ![Howrah, yearly sunlight from the Python model](Images/east_yearly.png)
 :::
 :::{tab-item} Roofs: Python model
@@ -37,10 +39,12 @@ Both models were run on the same 0.5 m surface models and the same weather file 
 :::{tab-item} Difference
 ![Howrah, Python model minus SEBE](Images/east_difference.png)
 :::
-:::{tab-item} Suitable roof (Python model)
+:::{tab-item} Suitable roof
 ![Howrah, suitable roof](Images/east_suitable.png)
 :::
 ::::
+
+* Analysis Here 
 
 ## Yearly sunlight from the Python model
 
@@ -120,10 +124,10 @@ Adding up the sunlight on each building gives one total per roof. These totals d
 
 ::::{tab-set}
 :::{tab-item} Python model
-![Total yearly sunlight per roof from the Python model](Images/Sum zonal comparisons2.png)
+![Total yearly sunlight per roof from the Python model](Images/Sumzonalcomparisons2.png)
 :::
 :::{tab-item} SEBE
-![Total yearly sunlight per roof from SEBE](Images/Sum zonal comparisonsSEBE.png)
+![Total yearly sunlight per roof from SEBE](Images/SumzonalcomparisonsSEBE.png)
 :::
 ::::
 
@@ -131,7 +135,7 @@ Values are the total yearly sunlight on each building in kWh per year, shown in 
 
 ## Suitable roof area
 
-A roof cell was counted as suitable if it is on a building, has a slope of 65° or less, and gets at least 80% of the sunlight on unshaded flat ground (1,139 kWh/m²). See the [methods page](methods.md) for the sources of these rules. The criteria were applied to the Python model results.
+A roof cell was counted as suitable if it is on a building, has a slope of 65° or less, and gets at least 80% of the sunlight on unshaded flat ground (1,139 kWh/m²). The criteria were applied to the Python model results.
 
 | | Sandy Bay | Howrah |
 |---|---|---|
