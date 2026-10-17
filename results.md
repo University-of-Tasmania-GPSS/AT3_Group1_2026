@@ -1,143 +1,12 @@
 # Results
 
-## Python model
-
-Yearly sunlight on roofs ranged from under 400 kWh/m² on the most shaded cells to about 1,600 kWh/m² on the best ones in both subsets ([](#fig-yearly-sunlight)). The highest values were on roof faces angled towards the north, and the lowest were on south-facing faces and cells shaded by trees or neighbouring buildings. The middle value was higher in Sandy Bay (1,181 kWh/m²) than in Howrah (1,038 kWh/m²). 
-For scale, unshaded flat ground gets 1,424 kWh/m² in our weather file.
-
-```{figure} Images/yearly_sunlight_roofs.png
-:label: fig-yearly-sunlight
-:width: 100%
-:alt: Maps of yearly sunlight from our model for the Sandy Bay and Howrah subsets
-
-Yearly sunlight from our Python model for the Sandy Bay (left) and Howrah (right) subsets, in kWh/m².
-```
-
-| | Lowest | Middle | Highest |
-|---|---|---|---|
-| Sandy Bay | 384 | 1,181 | 1,597 |
-| Howrah | 385 | 1,038 | 1,596 |
-
-Values are in kWh/m² per year.
-
-## SEBE
-
-
-
-### SEBE vs Python model: West and East (per-roof means, kWh/m²/year)
-
-```{figure} Images/SEBE_vs_Python_graphs.png
-:label: fig-model-graphs
-:width: 100%
-:alt: Graphs comparing the Python model and SEBE using the mean, count and sum for each building
-
-Comparison of our Python model and SEBE using zonal statistics, showing the mean, count and sum for each building.
-```
-
-| Metric | West | East |
-|:--|--:|--:|
-| Number of roofs | 581 | 279 |
-| SEBE mean | 1,334.4 | 1,253.3 |
-| Python mean | 1,459.0 | 1,376.7 |
-| SEBE median | 1,351.0 | 1,307.5 |
-| Python median | 1,470.2 | 1,414.3 |
-| Bias (Python − SEBE) | +124.7 | +123.4 |
-| MAE | 124.7 | 123.4 |
-| RMSE | 130.9 | 129.3 |
-| NMBE (% of SEBE mean) | 9.3% | 9.8% |
-| NRMSE (% of SEBE mean) | 9.8% | 10.3% |
-| Median % difference | 8.7% | 8.7% |
-| Pearson r | 0.956 | 0.981 |
-| R² | 0.914 | 0.963 |
-| Regression slope | 0.872 | 0.835 |
-| Regression intercept | 295.8 | 330.5 |
-| Spearman ρ | 0.949 | 0.943 |
-| Roofs where Python > SEBE | 581 of 581 | 279 of 279 |
-| Wilcoxon p-value | 7.5e-97 | 1.7e-47 |
-
-*Positive bias = Python model higher than SEBE. Values converted from kWh per 0.5 m cell per year (÷ 0.25 m²).*
-
-
-## Model comparison
-
-To compare the models roof by roof, the yearly sunlight on each building was added up to give one total per roof ([](#fig-zonal-python) and [](#fig-zonal-sebe)). Because these are totals, they depend on the size of the roof as well as how sunny it is. In both models the few large buildings fall in the highest class, and most houses sit in the second and third classes.
-
-The two models gave a very similar pattern. The same buildings come out high and low in each. The SEBE totals were slightly lower than ours. The largest roof in Sandy Bay reached about 1.78 million kWh a year in SEBE and 1.89 million in our model. In Howrah it was about 1.10 million in SEBE and 1.19 million in ours.
-
-```{figure} Images/Sum zonal comparisons2.png
-:label: fig-zonal-python
-:width: 100%
-:alt: Maps of total yearly sunlight per roof from the Python model for the Sandy Bay and Howrah subsets
-
-Total yearly sunlight on each roof from our Python model, for the Sandy Bay (left) and Howrah (right) subsets. Values are the zonal sum for each building in kWh per year, shown in five natural breaks classes.
-```
-
-```{figure} Images/Sum zonal comparisonsSEBE.png
-:label: fig-zonal-sebe
-:width: 100%
-:alt: Maps of total yearly sunlight per roof from SEBE for the Sandy Bay and Howrah subsets
-
-Total yearly sunlight on each roof from SEBE, for the Sandy Bay (left) and Howrah (right) subsets. Values are the zonal sum for each building in kWh per year, shown in five natural breaks classes.
-```
-
-% JANE: difference maps and how close the two models were
-
-
-## Suitable roof area
-
-About two thirds of the roof area in both subsets was suitable for solar panels ([](#fig-suitable)). 
-
-The suitable parts are mostly the north-facing side of each roof, with south-facing sides, roof edges and shaded areas left out. Almost every building had at least 10 m² of suitable roof: 479 of 484 in Sandy Bay and 249 of 257 in Howrah. The share of suitable roof was close in the two subsets, at 70% and 67%.
-
-```{figure} Images/suitable_roof_area.png
-:label: fig-suitable
-:width: 100%
-:alt: Maps of suitable roof area for the Sandy Bay and Howrah subsets
-
-Roof area suitable for solar panels (orange) and not suitable (grey) in the Sandy Bay (left) and Howrah (right) subsets.
-```
-
-
-### Comparing the two models
-
-Use the tabs to switch between the two models and the difference between them. The maps are the same size and extent, so they line up when switching.
-
-::::{tab-set}
-:::{tab-item} Python model
-![Sandy Bay, Python model](Images/west_python.png)
-:::
-:::{tab-item} SEBE
-![Sandy Bay, SEBE](Images/west_sebe.png)
-:::
-:::{tab-item} Difference
-![Sandy Bay, Python model minus SEBE](Images/west_difference.png)
-:::
-::::
-
-::::{tab-set}
-:::{tab-item} Python model
-![Howrah, Python model](Images/east_python.png)
-:::
-:::{tab-item} SEBE
-![Howrah, SEBE](Images/east_sebe.png)
-:::
-:::{tab-item} Difference
-![Howrah, Python model minus SEBE](Images/east_difference.png)
-:::
-::::
-
-
-
-
-# Results
-
-Both models were run on the same 0.5 m surface models and the same weather file for Hobart Ellerslie Road. Use the tabs to step through the results for each test area. The maps are all the same size and extent, so they line up when switching tabs.
+Both models were run on the same 0.5 m surface models and the same weather file for Hobart Ellerslie Road, so any difference between them comes from the models and not the data. Use the tabs to step through the results for each subset. The maps are all the same size and extent, so they line up when switching tabs.
 
 ## Sandy Bay
 
 ::::{tab-set}
-:::{tab-item} Yearly sunlight
-![Sandy Bay, yearly sunlight](Images/west_yearly.png)
+:::{tab-item} Python model
+![Sandy Bay, yearly sunlight from the Python model](Images/west_yearly.png)
 :::
 :::{tab-item} Roofs: Python model
 ![Sandy Bay, Python model on roofs](Images/west_python.png)
@@ -148,7 +17,7 @@ Both models were run on the same 0.5 m surface models and the same weather file 
 :::{tab-item} Difference
 ![Sandy Bay, Python model minus SEBE](Images/west_difference.png)
 :::
-:::{tab-item} Suitable roof
+:::{tab-item} Suitable roof (Python model)
 ![Sandy Bay, suitable roof](Images/west_suitable.png)
 :::
 ::::
@@ -156,8 +25,8 @@ Both models were run on the same 0.5 m surface models and the same weather file 
 ## Howrah
 
 ::::{tab-set}
-:::{tab-item} Yearly sunlight
-![Howrah, yearly sunlight](Images/east_yearly.png)
+:::{tab-item} Python model
+![Howrah, yearly sunlight from the Python model](Images/east_yearly.png)
 :::
 :::{tab-item} Roofs: Python model
 ![Howrah, Python model on roofs](Images/east_python.png)
@@ -168,30 +37,101 @@ Both models were run on the same 0.5 m surface models and the same weather file 
 :::{tab-item} Difference
 ![Howrah, Python model minus SEBE](Images/east_difference.png)
 :::
-:::{tab-item} Suitable roof
+:::{tab-item} Suitable roof (Python model)
 ![Howrah, suitable roof](Images/east_suitable.png)
 :::
 ::::
 
-## What the maps show
+## Yearly sunlight from the Python model
 
-### Yearly sunlight
-[2 to 3 sentences: range, flat ground near 1,424, north faces highest, shade and south faces lowest]
+Across each full subset, yearly sunlight ranged from under 400 kWh/m² on cells that never get direct sun to about 1,600 kWh/m² on the best-placed surfaces. For scale, unshaded flat ground gets 1,424 kWh/m² in our weather file. The highest values were on roof faces angled towards the north, and the lowest were on south-facing faces and on cells shaded by trees or neighbouring buildings. The middle value was higher in Sandy Bay than in Howrah, mostly because of the bushland on the eastern side of the Howrah subset.
 
-### Sunlight on roofs
-[Roof cover 21% and 13%, most roofs 1,200 to 1,500, the bushland edge in Howrah]
+| | Lowest | Middle | Highest |
+|---|---|---|---|
+| Sandy Bay | 384 | 1,181 | 1,597 |
+| Howrah | 385 | 1,038 | 1,596 |
 
-### Comparison with SEBE
+Values are in kWh/m² per year, for every cell in the subset.
+
+## Sunlight on roofs
+
+Roofs cover 21% of the Sandy Bay subset and 13% of the Howrah subset. Most roofs received between about 1,200 and 1,500 kWh/m², with each roof showing a brighter north-facing side and a darker south-facing side. The poorest roofs in Howrah sit along the edge of the bushland, where the trees shade them for much of the day.
+
+| | Lowest | Highest |
+|---|---|---|
+| Sandy Bay: Python model | 397 | 1,597 |
+| Sandy Bay: SEBE | 213 | 1,614 |
+| Howrah: Python model | 388 | 1,594 |
+| Howrah: SEBE | 213 | 1,586 |
+
+Values are in kWh/m² per year, for roof cells only.
+
+## Comparison with SEBE
+
+### Cell by cell
+
+The two models reach almost the same highest values, but SEBE goes much lower on the most shaded roof cells. Our model was higher than SEBE on almost every roof cell. For 95% of roof cells, our model was between 0 and about 230 kWh/m² higher in Sandy Bay, and between about −6 and 260 kWh/m² higher in Howrah. On the difference maps, pale yellow shows where the models nearly agree and dark red shows where our model is well above SEBE.
+
+### Roof by roof
+
+To compare whole roofs, the average yearly sunlight on each building was found for both models using zonal statistics in QGIS ([](#fig-model-graphs)).
+
+```{figure} Images/SEBE_vs_Python_graphs.png
+:label: fig-model-graphs
+:width: 100%
+:alt: Graphs comparing the Python model and SEBE for each building
+
+Comparison of our Python model and SEBE for each building, using zonal statistics.
+```
 
 | | Sandy Bay | Howrah |
 |---|---|---|
-| Python model on roofs (kWh/m²) | 397 – 1,597 | 388 – 1,594 |
-| SEBE on roofs (kWh/m²) | 213 – 1,614 | 213 – 1,586 |
-| Average difference, Python minus SEBE (kWh/m²) | [ ] | [ ] |
+| Number of roofs | [484] | [257] |
+| SEBE mean (kWh/m²) | 1,334 | 1,253 |
+| Python model mean (kWh/m²) | 1,459 | 1,377 |
+| Average difference, Python minus SEBE (kWh/m²) | +125 | +123 |
+| Average difference as % of SEBE | 9.3% | 9.8% |
+| RMSE (kWh/m²) | 131 | 129 |
+| Correlation (R²) | 0.91 | 0.96 |
+| Roofs where Python model is higher | all | all |
 
-[Where the difference map is red and where it's blue]
+Our model was higher than SEBE on every roof, by about 125 kWh/m², or around 9 to 10%, on average in both subsets. Even so, the two models ranked the roofs in almost the same order (R² of 0.91 in Sandy Bay and 0.96 in Howrah), so the roofs that come out best in one model also come out best in the other.
 
-### Suitable roof area
+:::{dropdown} Full comparison statistics
+| Metric | Sandy Bay | Howrah |
+|:--|--:|--:|
+| SEBE median | 1,351.0 | 1,307.5 |
+| Python median | 1,470.2 | 1,414.3 |
+| MAE | 124.7 | 123.4 |
+| NRMSE (% of SEBE mean) | 9.8% | 10.3% |
+| Median % difference | 8.7% | 8.7% |
+| Pearson r | 0.956 | 0.981 |
+| Regression slope | 0.872 | 0.835 |
+| Regression intercept | 295.8 | 330.5 |
+| Spearman ρ | 0.949 | 0.943 |
+| Wilcoxon p-value | 7.5e-97 | 1.7e-47 |
+
+Positive values mean our model is higher than SEBE.
+:::
+
+### Total sunlight per roof
+
+Adding up the sunlight on each building gives one total per roof. These totals depend on the size of the roof as well as how sunny it is, so the few large buildings fall in the highest class and most houses sit in the middle classes. The two models gave a very similar pattern, with SEBE slightly lower. [The largest roof in Sandy Bay reached about 1.78 million kWh a year in SEBE and 1.89 million in our model. In Howrah it was about 1.10 million in SEBE and 1.19 million in ours.]
+
+::::{tab-set}
+:::{tab-item} Python model
+![Total yearly sunlight per roof from the Python model](Images/Sum zonal comparisons2.png)
+:::
+:::{tab-item} SEBE
+![Total yearly sunlight per roof from SEBE](Images/Sum zonal comparisonsSEBE.png)
+:::
+::::
+
+Values are the total yearly sunlight on each building in kWh per year, shown in five natural breaks classes.
+
+## Suitable roof area
+
+A roof cell was counted as suitable if it is on a building, has a slope of 65° or less, and gets at least 80% of the sunlight on unshaded flat ground (1,139 kWh/m²). See the [methods page](methods.md) for the sources of these rules. The criteria were applied to the Python model results.
 
 | | Sandy Bay | Howrah |
 |---|---|---|
@@ -199,7 +139,11 @@ Both models were run on the same 0.5 m surface models and the same weather file 
 | Suitable area (m²) | 53,279 | 30,504 |
 | Share suitable | 70% | 67% |
 
-[The three rules in one line, linking to the methods page, and what the grey parts are]
+About two thirds of the roof area was suitable in both subsets. The parts that failed were mostly south-facing roof faces, roof edges and shaded areas.
 
 ## Key results
-- [3 or 4 bullet points]
+
+- Yearly sunlight on roofs ranged from about 400 to 1,600 kWh/m², with north-facing, unshaded roof faces getting the most.
+- Our model was higher than SEBE on every roof, by about 125 kWh/m² (9 to 10%) on average, with the biggest differences on the most shaded cells.
+- The two models ranked the roofs in almost the same order (R² of 0.91 and 0.96).
+- About two thirds of the roof area in both subsets was suitable for solar panels.
