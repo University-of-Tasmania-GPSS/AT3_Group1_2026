@@ -1,0 +1,21 @@
+name: KGG375_AT3
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - mamba
+  - gdal
+  - pygis
+  - ipykernel
+  - rioxarray
+  - xarray
+  - matplotlib
+  - shapely
+  - pyogrio
+  - grep
+  - jupyter-book
+  - whitebox
+  - duckdb
+  - pvlib
+  - rasterstats
+prefix: /opt/miniconda3/envs/KGG375_AT3
