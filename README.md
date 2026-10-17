@@ -69,7 +69,7 @@ This creates an environment called `KGG375_AT3` with Python and every library th
 | folium | The interactive map on the website |
 
 ### 2. Acquire data
-The data files are too large for GitHub, so they need to be downloaded and put in an `Inputs` folder. The notebooks expect this layout:
+The data files need to be downloaded and put in an `Inputs` folder. The notebooks expect this layout:
 
 ```
 Inputs/
@@ -92,6 +92,7 @@ Inputs/
 | Building footprints | [LISTdata](https://listdata.thelist.tas.gov.au/opendata/), 2D Building Polygons | Hobart and Clarence council layers |
 | Weather file | [Climate.OneBuilding.Org](https://climate.onebuilding.org/) | TMYx file for Hobart Ellerslie Road |
 | Reference GHI | [Global Solar Atlas](https://globalsolaratlas.info/download/australia) | Long-term average GHI raster, only used as a check |
+
 
 **Making the surface model.** The LiDAR was turned into a 0.5 m digital surface model in ArcGIS Pro:
 
@@ -116,6 +117,16 @@ Run the notebooks in this order. Each one saves outputs that the next one reads 
 ## AI usage and References
 Many of the documentation pages and worked examples used to build the code are linked directly in the notebooks, next to the step they were used for.
 
+- Klein, S. A. (1977). Calculation of monthly average insolation on tilted surfaces. *Solar Energy, 19*(4), 325–329. https://doi.org/10.1016/0038-092X(77)90001-9
+- Liu, B. Y. H., & Jordan, R. C. (1960). The interrelationship and characteristic distribution of direct, diffuse and total solar radiation. *Solar Energy, 4*(3), 1–19. https://doi.org/10.1016/0038-092X(60)90062-1
+- Roberts, M. B., Copper, J., & Bruce, A. (2018). *Analysis of rooftop solar potential on Australian residential buildings* [Conference paper]. Asia Pacific Solar Research Conference, Sydney, Australia. https://energyconsumersaustralia.com.au/sites/default/files/2025-05/apsrc-paper-rooftop-solar-potential-2018.pdf
+- UMEP. (n.d.). *Solar energy – Introduction to SEBE* [Tutorial]. https://umep-docs.readthedocs.io/projects/tutorial/en/latest/Tutorials/SEBE.html
+  
+- Anderson, K. S., Hansen, C. W., Holmgren, W. F., Jensen, A. R., Mikofski, M. A., & Driesse, A. (2023). pvlib python: 2023 project update. *Journal of Open Source Software, 8*(92), 5994. https://doi.org/10.21105/joss.05994
+- Jensen, A. R., Anderson, K. S., Holmgren, W. F., Mikofski, M. A., Hansen, C. W., Boeman, L. J., & Loonen, R. (2023). pvlib iotools – Open-source Python functions for seamless access to solar irradiance data. *Solar Energy, 266*, 112092. https://doi.org/10.1016/j.solener.2023.112092
+- Lindsay, J. B. (2016). Whitebox GAT: A case study in geomorphometric analysis. *Computers & Geosciences, 95*, 75–84. https://doi.org/10.1016/j.cageo.2016.07.003
+
+
 ### AI Usage
 Claude.ai was used during this project to:
 - Plan the workflow and work out which specific datasets we needed
@@ -125,14 +136,3 @@ Claude.ai was used during this project to:
 - Adapt example code from other sources to fit our data and model
 - Tidy code to follow PEP 8
 - Draft and edit the markdown explanations in the notebooks
-
-### Methods
-- Klein, S. A. (1977). Calculation of monthly average insolation on tilted surfaces. *Solar Energy, 19*(4), 325–329. https://doi.org/10.1016/0038-092X(77)90001-9
-- Liu, B. Y. H., & Jordan, R. C. (1960). The interrelationship and characteristic distribution of direct, diffuse and total solar radiation. *Solar Energy, 4*(3), 1–19. https://doi.org/10.1016/0038-092X(60)90062-1
-- Roberts, M. B., Copper, J., & Bruce, A. (2018). *Analysis of rooftop solar potential on Australian residential buildings* [Conference paper]. Asia Pacific Solar Research Conference, Sydney, Australia. https://energyconsumersaustralia.com.au/sites/default/files/2025-05/apsrc-paper-rooftop-solar-potential-2018.pdf
-- UMEP. (n.d.). *Solar energy – Introduction to SEBE* [Tutorial]. https://umep-docs.readthedocs.io/projects/tutorial/en/latest/Tutorials/SEBE.html
-
-### Software
-- Anderson, K. S., Hansen, C. W., Holmgren, W. F., Jensen, A. R., Mikofski, M. A., & Driesse, A. (2023). pvlib python: 2023 project update. *Journal of Open Source Software, 8*(92), 5994. https://doi.org/10.21105/joss.05994
-- Jensen, A. R., Anderson, K. S., Holmgren, W. F., Mikofski, M. A., Hansen, C. W., Boeman, L. J., & Loonen, R. (2023). pvlib iotools – Open-source Python functions for seamless access to solar irradiance data. *Solar Energy, 266*, 112092. https://doi.org/10.1016/j.solener.2023.112092
-- Lindsay, J. B. (2016). Whitebox GAT: A case study in geomorphometric analysis. *Computers & Geosciences, 95*, 75–84. https://doi.org/10.1016/j.cageo.2016.07.003
