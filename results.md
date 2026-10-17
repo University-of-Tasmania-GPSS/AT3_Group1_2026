@@ -125,3 +125,81 @@ Use the tabs to switch between the two models and the difference between them. T
 ![Howrah, Python model minus SEBE](Images/east_difference.png)
 :::
 ::::
+
+
+
+
+# Results
+
+Both models were run on the same 0.5 m surface models and the same weather file for Hobart Ellerslie Road. Use the tabs to step through the results for each test area. The maps are all the same size and extent, so they line up when switching tabs.
+
+## Sandy Bay
+
+::::{tab-set}
+:::{tab-item} Yearly sunlight
+![Sandy Bay, yearly sunlight](Images/west_yearly.png)
+:::
+:::{tab-item} Roofs: Python model
+![Sandy Bay, Python model on roofs](Images/west_python.png)
+:::
+:::{tab-item} Roofs: SEBE
+![Sandy Bay, SEBE on roofs](Images/west_sebe.png)
+:::
+:::{tab-item} Difference
+![Sandy Bay, Python model minus SEBE](Images/west_difference.png)
+:::
+:::{tab-item} Suitable roof
+![Sandy Bay, suitable roof](Images/west_suitable.png)
+:::
+::::
+
+## Howrah
+
+::::{tab-set}
+:::{tab-item} Yearly sunlight
+![Howrah, yearly sunlight](Images/east_yearly.png)
+:::
+:::{tab-item} Roofs: Python model
+![Howrah, Python model on roofs](Images/east_python.png)
+:::
+:::{tab-item} Roofs: SEBE
+![Howrah, SEBE on roofs](Images/east_sebe.png)
+:::
+:::{tab-item} Difference
+![Howrah, Python model minus SEBE](Images/east_difference.png)
+:::
+:::{tab-item} Suitable roof
+![Howrah, suitable roof](Images/east_suitable.png)
+:::
+::::
+
+## What the maps show
+
+### Yearly sunlight
+[2 to 3 sentences: range, flat ground near 1,424, north faces highest, shade and south faces lowest]
+
+### Sunlight on roofs
+[Roof cover 21% and 13%, most roofs 1,200 to 1,500, the bushland edge in Howrah]
+
+### Comparison with SEBE
+
+| | Sandy Bay | Howrah |
+|---|---|---|
+| Python model on roofs (kWh/m²) | 397 – 1,597 | 388 – 1,594 |
+| SEBE on roofs (kWh/m²) | 213 – 1,614 | 213 – 1,586 |
+| Average difference, Python minus SEBE (kWh/m²) | [ ] | [ ] |
+
+[Where the difference map is red and where it's blue]
+
+### Suitable roof area
+
+| | Sandy Bay | Howrah |
+|---|---|---|
+| Roof area (m²) | 76,412 | 45,217 |
+| Suitable area (m²) | 53,279 | 30,504 |
+| Share suitable | 70% | 67% |
+
+[The three rules in one line, linking to the methods page, and what the grey parts are]
+
+## Key results
+- [3 or 4 bullet points]

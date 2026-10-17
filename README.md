@@ -65,11 +65,9 @@ This creates an environment called `KGG375_AT3` with Python and every library th
 | pvlib | Reading the weather file and calculating sun position |
 | GDAL | Slope, aspect and roughness |
 | whitebox | Shadow casting with the horizon angle tool |
-| rasterstats | Zonal statistics for each building |
-| folium | The interactive map on the website |
 
 ### 2. Acquire data
-The data files need to be downloaded and put in an `Inputs` folder. The notebooks expect this layout:
+The data files need to be downloaded and put in an `Inputs` folder. The notebooks uses this structure:
 
 ```
 Inputs/
@@ -108,7 +106,7 @@ Run the notebooks in this order. Each one saves outputs that the next one reads 
 
 | Notebook | What it does |
 |---|---|
-| `01Data_Preparation.ipynb` | Reads in and checks the data, joins and clips the buildings, checks the weather file |
+| `01Data_Preparation.ipynb` | Reads in and checks the data, joins and clips the buildings, checks the weather file, profects everything to project CRS|
 | `02Python_Model.ipynb` | Slope, aspect and roughness, sun position, shadows and the yearly sunlight for both subsets |
 | `03Comparison.ipynb` | Reads in SEBE, clips both models to the roofs and compares them and applies the suitability rules to our model's output |
 
