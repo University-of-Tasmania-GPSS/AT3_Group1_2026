@@ -123,6 +123,8 @@ Many of the documentation pages and worked examples used to build the code are l
 - Anderson, K. S., Hansen, C. W., Holmgren, W. F., Jensen, A. R., Mikofski, M. A., & Driesse, A. (2023). pvlib python: 2023 project update. *Journal of Open Source Software, 8*(92), 5994. https://doi.org/10.21105/joss.05994
 - Jensen, A. R., Anderson, K. S., Holmgren, W. F., Mikofski, M. A., Hansen, C. W., Boeman, L. J., & Loonen, R. (2023). pvlib iotools – Open-source Python functions for seamless access to solar irradiance data. *Solar Energy, 266*, 112092. https://doi.org/10.1016/j.solener.2023.112092
 - Lindsay, J. B. (2016). Whitebox GAT: A case study in geomorphometric analysis. *Computers & Geosciences, 95*, 75–84. https://doi.org/10.1016/j.cageo.2016.07.003
+-  Ilba, M. (2025). SolarQGIS: A QGIS application for calculating solar radiation on 3D vector GIS data. SoftwareX, 31, 102230. https://doi.org/10.1016/j.softx.2025.102230 Kodysh, J. B., Omitaomu, O.
+-  A., Bhaduri, B. L., & Neish, B. S. (2013). Methodology for estimating solar potential on multiple building rooftops for photovoltaic systems. Sustainable Cities and Society, 8, 31–41. https://doi.org/10.1016/j.scs.2013.01.002
 
 
 ### AI Usage
