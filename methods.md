@@ -38,7 +38,64 @@ flowchart TD
   class G sebe
   class H,J output
 ```
-Blue boxes are input data, yellow is our model, pink is SEBE and green boxes are outputs.
+
+
+
+```{mermaid}
+flowchart TD
+
+  A[LiDAR point cloud]
+  B[Building footprints]
+  C[Hourly weather file]
+
+  D[0.5 m surface model]
+  E[Slope and aspect]
+
+  F[Our Python model]
+  G[SEBE in QGIS]
+
+  H1[Python yearly radiation]
+  H2[SEBE yearly radiation]
+
+  I[Slope-corrected roof area]
+  J[Yearly sunlight per roof]
+  K[Our model vs SEBE]
+
+  L[Suitability rules]
+  M[Suitable roof per building]
+
+  A --> D
+  D --> E
+  D --> F
+  E --> F
+  C --> F
+  D --> G
+  C --> G
+  F --> H1
+  G --> H2
+  H1 --> I
+  H2 --> I
+  E --> I
+  B --> J
+  I --> J
+  J --> K
+  H1 --> L
+  E --> L
+  B --> L
+  L --> M
+
+  classDef input fill:#cfe2f3,stroke:#3d85c6,color:#000
+  classDef process fill:#eeeeee,stroke:#666666,color:#000
+  classDef python fill:#fff2cc,stroke:#bf9000,color:#000
+  classDef sebe fill:#ead1dc,stroke:#a64d79,color:#000
+  classDef output fill:#d9ead3,stroke:#38761d,color:#000
+
+  class A,B,C input
+  class D,E,I,L process
+  class F,H1 python
+  class G,H2 sebe
+  class J,K,M output
+```
 
 
 ## Data
@@ -59,7 +116,7 @@ All of the preparation was done for the full study area first, and the two subse
 
 ### Surface model
 
-We first tried a 1m digital elevation model, but it couldn't identify the shape of individual roofs. We downloaded a LiDAR point cloud from ELVIS and built a 0.5 m digital surface model in ArcGIS Pro. A surface model gives the height of whatever is on top, so it includes roofs and trees and not just the ground.
+A 1m digital elevation model was first downloaded, but it couldn't identify the shape of individual roofs. A LiDAR point cloud from ELVIS was then loaded and built a 0.5 m digital surface model in ArcGIS Pro. A surface model gives the height of whatever is on top, so it includes roofs and trees and not just the ground.
 
 
 ### Building footprints
@@ -91,6 +148,28 @@ In the Sandy Bay Subset there were 484 buildings and in the Howrah subset there 
 :::::{tab-set}
 
 ::::{tab-item} Our Python model
+
+```{mermaid}
+flowchart TD
+  A[Surface model] --> B[Slope and aspect<br>GDAL]
+  C[Weather file] --> D[Sun position<br>pvlib]
+  D --> E[Typical day<br>15th of each month]
+  A --> F[Skyline height<br>WhiteboxTools]
+  E --> F
+  F --> G[Shadow mask]
+  B --> H[Direct sunlight]
+  E --> H
+  G --> H
+  C --> H
+  B --> I[Diffuse sunlight]
+  C --> I
+  B --> J[Reflected sunlight]
+  C --> J
+  H --> K[Yearly total<br>kWh/m²]
+  I --> K
+  J --> K
+```
+
 Our model works out how much sunlight lands on every 0.5 m cell over a year. It adds up three parts: direct sunlight, diffuse sunlight from the sky, and sunlight reflected off the ground.
 
 **1. Surface characteristics.** Slope, aspect and roughness were calculated from the surface model with GDAL. Slope and aspect go into the model. Roughness was calculated but not used in the end.
@@ -162,7 +241,7 @@ flowchart TD
 
 The weather file was converted to UMEP's text format with the UMEP pre-processing tool. The same tool set was used to make wall height and wall aspect rasters from each subset's surface model, leaving out walls lower than 3 m. SEBE was then run on these layers to estimate solar radiation for a typical year.
 
-SEBE would not run in current versions of QGIS at first, because of a NumPy version problem in the sun position step. A small patch to the plugin code fixed this, and SEBE was run on one computer.
+SEBE would not run in current versions of QGIS at first, because a NumPy update broke the sun position step of the plugin. We fixed this by editing a small part of the plugin code so it worked with the newer NumPy version. Because the fix was made to the copy of the plugin installed on one computer, both subsets were run through SEBE on that same machine so the settings stayed consistent.
 
 ::::
 
@@ -184,11 +263,15 @@ SEBE would not run in current versions of QGIS at first, because of a NumPy vers
 
 ## How we compared them
 
-Both models produce a raster of yearly sunlight in kWh/m² for the same cells. A sloped roof has more surface than it appears to from above, so each cell's area was corrected for slope before adding up:
+Both models produce a final raster of yearly sunlight in kWh/m² for the same 0.5 m cells. Turning this into a total for each roof, slope needs to be accounted for first. A sloped roof has more surface area than it looks like from above, so each cell's area was corrected for slope ([](#eq-area)):
 
-Actual area = cell area / cos(slope)
+```{math}
+:label: eq-area
 
-The cell area is 0.25 m² (0.5 m × 0.5 m). Zonal statistics in QGIS were then used to add up the yearly sunlight on each building's roof. The same steps were applied to the SEBE output and to our Python model output, so the two could be compared roof by roof. The results were mapped in five classes using natural breaks (Jenks).
+A_{actual} = \frac{A_{cell}}{\cos(\theta)}
+```
+
+where $A_{cell}$ is the cell area of 0.25 m² (0.5 m × 0.5 m) and $\theta$ is the slope of the cell (UMEP, n.d.). Each cell's yearly sunlight (kWh/m²) was multiplied by its actual area to give the yearly sunlight in kWh for that cell. Zonal statistics in QGIS were then used to add these up for each building, giving the total yearly sunlight on each roof in kWh per year. The same steps were applied to the SEBE output and our Python model output, so the two could be compared roof by roof.
 
 
 ## Suitability criteria
