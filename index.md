@@ -1,6 +1,5 @@
 ---
-title: Hobart’s Hidden Power Potential. 
-title: Mapping Rooftop Solar Potential
+title: Hobart’s Hidden Power Potential- Mapping Rooftop Solar Potential
 short_title: Overview
 ---
 
@@ -17,7 +16,7 @@ A comparison of rooftop solar potential estimated by a simplified Python model a
 :width: 90%
 :alt: Map of estimated annual facade-level PV potential in Luohu District, Shenzhen
 
-Estimated annual facade-level PV potential (kWh/m²/year) in Luohu District, Shenzhen, China. An example of solar modelling used to map PV potential across a whole urban area. Reproduced from [Dong et al. (2026)](https://www.sciencedirect.com/science/article/pii/S0306261925017398).
+Estimated annual facade-level PV potential (kWh/m²/year) in Luohu District, Shenzhen, China. An example of solar modelling used to map PV potential across a whole urban area. [Dong et al. (2026)](https://www.sciencedirect.com/science/article/pii/S0306261925017398).
 ```
 
 
@@ -52,4 +51,4 @@ Key findings and how they relate to our project aims
 :::
 ::::
 
-All code for this project is in our group repository.   {button}`View the code on GitHub <https://github.com/University-of-Tasmania-GPSS/AT3_Group1_2026>`
+All code for this project is in our group repository.           {button}`View the code on GitHub <https://github.com/University-of-Tasmania-GPSS/AT3_Group1_2026>`
