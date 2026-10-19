@@ -1,5 +1,5 @@
 ---
-title: Rooftop Solar Potential in Hobart and Eastern Shore
+title: Hobart’s Hidden Power Potential. Mapping Rooftop Solar Potential
 short_title: Overview
 ---
 
@@ -8,15 +8,15 @@ short_title: Overview
 *Jane Stanton, Laila McLennan*
 
 
-A comparison of rooftop solar potential on the western and eastern shores of Hobart, using our own Python model and QGIS SEBE UMEP Model.
+A comparison of rooftop solar potential estimated by a simplified Python model and the SEBE model (UMEP, QGIS), tested across two sample areas on the western and eastern shores of Hobart.
 
 
 
-```{figure} Images/rooftop-solar.jpg
+```{figure} Images/Solar_potential_Study.png
 :width: 90%
-:alt: Rooftop Solar Panels 
+:alt: Map of estimated annual facade-level PV potential in Luohu District, Shenzhen
 
-Rooftop Solar Panels, [Source](https://www.acciona.com.au/updates/stories/the-pros-of-having-your-own-rooftop-solar-panels).
+Estimated annual facade-level PV potential (kWh/m²/year) in Luohu District, Shenzhen, China. An example of solar modelling used to map PV potential across a whole urban area. Reproduced from [Dong et al. (2026)](https://www.sciencedirect.com/science/article/pii/S0306261925017398).
 ```
 
 
@@ -26,23 +26,28 @@ Rooftop Solar Panels, [Source](https://www.acciona.com.au/updates/stories/the-pr
 ::::{grid} 1 2 2 3
 :::{card} Introduction
 :link: intro
-Why Solar Modelling? 
+:footer: Part 1
+ackground on rooftop solar in Hobart and the reasons for building our own model
 :::
 :::{card} Methods
 :link: methods
-How both models work
+:footer: Part 2
+LiDAR processing, the Python solar model and the SEBE workflow
 :::
 :::{card} Results
 :link: results
-Hobart vs Eastern Shore
+:footer: Part 3
+How closely the Python model matches SEBE across Sandy Bay and Howrah
 :::
 :::{card} Discussion
 :link: discussion
-What does this mean?
+:footer: Part 4
+Challenges faced, limitations of each model and alternative approaches
 :::
 :::{card} Conclusion
 :link: conclusion
-Main takeaways
+:footer: Part 5
+Key findings and how they relate to our project aims
 :::
 ::::
 
