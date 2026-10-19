@@ -38,7 +38,6 @@ flowchart TD
   class G sebe
   class H,J output
 ```
-Blue boxes are input data, yellow is our model, pink is SEBE and green boxes are outputs.
 
 
 ## Data
@@ -59,7 +58,7 @@ All of the preparation was done for the full study area first, and the two subse
 
 ### Surface model
 
-We first tried a 1m digital elevation model, but it couldn't identify the shape of individual roofs. We downloaded a LiDAR point cloud from ELVIS and built a 0.5 m digital surface model in ArcGIS Pro. A surface model gives the height of whatever is on top, so it includes roofs and trees and not just the ground.
+A 1m digital elevation model was first downloaded, but it couldn't identify the shape of individual roofs. A LiDAR point cloud from ELVIS was then loaded and built a 0.5 m digital surface model in ArcGIS Pro. A surface model gives the height of whatever is on top, so it includes roofs and trees and not just the ground.
 
 
 ### Building footprints
@@ -91,7 +90,38 @@ In the Sandy Bay Subset there were 484 buildings and in the Howrah subset there 
 :::::{tab-set}
 
 ::::{tab-item} Our Python model
-Our model works out how much sunlight lands on every 0.5 m cell over a year. It adds up three parts: direct sunlight, diffuse sunlight from the sky, and sunlight reflected off the ground.
+
+```{mermaid}
+flowchart TD
+  A[Surface model]
+  C[Weather file]
+
+  B[Slope and aspect<br>GDAL]
+  D[Sun position and hourly sunlight<br>pvlib, typical day each month]
+  E[Shadows<br>WhiteboxTools]
+
+  F[Sunlight on each cell<br>direct + diffuse + reflected]
+  G[Yearly total<br>kWh/m²]
+
+  A --> B
+  A --> E
+  C --> D
+  D --> E
+  B --> F
+  D --> F
+  E --> F
+  F --> G
+
+  classDef input fill:#cfe2f3,stroke:#3d85c6,color:#000
+  classDef python fill:#fff2cc,stroke:#bf9000,color:#000
+  classDef output fill:#d9ead3,stroke:#38761d,color:#000
+
+  class A,C input
+  class B,D,E,F python
+  class G output
+```
+
+This model calculates how much sunlight lands on every 0.5 m cell over a year. Adding up three parts: direct sunlight, diffuse sunlight from the sky, and sunlight reflected off the ground.
 
 **1. Surface characteristics.** Slope, aspect and roughness were calculated from the surface model with GDAL. Slope and aspect go into the model. Roughness was calculated but not used in the end.
 
@@ -131,11 +161,51 @@ Surface roughness for the Sandy Bay (left) and Howrah (right) subsets.
 ```
 :::
 
-**2. Sun position.** For every hour in the weather file, pvlib works out where the sun is in the sky: how high it is and its compass direction.
+**2. Sun position.** For every hour in the weather file, pvlib works out where the sun is in the sky: its elevation and its azimuth (Anderson et al., 2023). This only needs the latitude, longitude and time zone of the study area.
 
-**3. Typical day.** Casting shadows for every hour of the year takes too long at 0.5 m. We used the sun's position on the 15th of each month as a typical day for that month.
+**3. Typical day.** Running the next steps for all 8,760 hours of the year would take too long. Instead, using the sun's position on the 15th of each month as a typical day for that month.
 
 **4. Shadows.** For each daylight hour of the typical day, WhiteboxTools works out how high the skyline is in the direction of the sun. If the skyline is higher than the sun, the cell is in shadow.
+
+
+
+**4. Shadows.** For each daylight hour of the typical day, WhiteboxTools works out the horizon angle of every cell in the direction of the sun. This is how high the skyline looks from that cell, looking towards the sun, if the horizon angle is higher than the sun's elevation, something is blocking the sun and the cell is in shadow ([](#fig-shadow-example)).
+
+:::{dropdown} Code: shadow mask
+```python
+def cast_shadows(dsm_path, altitude_degrees, azimuth_degrees):
+
+    # Work out how high the skyline is for every pixel, looking towards
+    # the sun. max_dist is how far it looks in metres, and 600 is the
+    # width of our test areas
+    skyline_path = outpath / "skyline.tif"
+    wbt.horizon_angle(
+        str(dsm_path),
+        str(skyline_path),
+        azimuth=azimuth_degrees,
+        max_dist=600,
+    )
+
+    # Read the skyline raster in
+    skyline_file = rasterio.open(skyline_path)
+    skyline = skyline_file.read(1)
+    skyline_file.close()
+
+    # A pixel is in shadow if the skyline is higher than the sun
+    shadow = skyline > altitude_degrees
+
+    return shadow
+```
+For each hour, WhiteboxTools works out how high the skyline is from every pixel, looking towards the sun. If the skyline is higher than the sun, that pixel is in shadow.
+:::
+
+```{figure} Images/shadows_june.png
+:label: fig-shadow-example
+:width: 100%
+:alt: Shadow masks for Sandy Bay at noon on 15 June.
+
+Shadow masks at noon on the middle of the day on 15th June (middle of winter) Black cells are in shadow. The low winter sun casts much longer shadows.
+```
 
 **5. Direct sunlight.** For each hour, the direct sunlight from every day in that month is added up, scaled by how directly the cell faces the sun, and set to zero where the cell is in shadow.
 
@@ -143,9 +213,60 @@ Surface roughness for the Sandy Bay (left) and Howrah (right) subsets.
 
 **7. Reflected sunlight.** Tilted cells also pick up some sunlight bounced off the ground. We used an albedo of 0.15, the same as SEBE.
 
-**8. Yearly total.** The three parts are added together and converted to kWh/m².
 
-::::
+**5. Direct sunlight.** How much direct sunlight a cell gets depends on the angle between the sun and the surface. This is the angle of incidence ($\theta$), worked out from the cell's slope ($\beta$) and aspect ($\gamma$) and the sun's zenith angle ($\theta_z$) and azimuth ($\gamma_s$):
+
+```{math}
+:label: eq-incidence
+
+\cos\theta = \cos\beta\cos\theta_z + \sin\beta\sin\theta_z\cos(\gamma_s - \gamma)
+```
+
+The direct sunlight on a cell for each hour is then:
+
+```{math}
+:label: eq-direct
+
+I_{dir} = DNI \times \cos\theta \times S
+```
+
+where $DNI$ is direct normal irradiance from the weather file and $S$ is the shadow mask (0 in shadow, 1 in sun). If $\cos\theta$ is negative the cell faces away from the sun, so it is set to zero. For each hour of the typical day, the DNI for that hour on every day of the month was added up and used in [](#eq-direct). That way the whole month's sunlight is counted, even though the shadows only come from one day.
+
+**6. Diffuse sunlight.** Diffuse sunlight comes from the whole sky rather than straight from the sun. We treated the sky as equally bright in every direction (an isotropic sky). A flat cell sees the whole sky, and a tilted cell sees less of it:
+
+```{math}
+:label: eq-diffuse
+
+I_{diff} = DHI \times \frac{1 + \cos\beta}{2}
+```
+
+where $DHI$ is diffuse horizontal irradiance (Klein, 1977). Shadows were not applied to diffuse sunlight, which is one of the main differences from SEBE.
+
+**7. Reflected sunlight.** Tilted cells also pick up some sunlight reflected off the ground:
+
+```{math}
+:label: eq-reflected
+
+I_{ref} = GHI \times \rho \times \frac{1 - \cos\beta}{2}
+```
+
+where $GHI$ is global horizontal irradiance and $\rho$ is the ground albedo. We used 0.15, the same value as SEBE. For flat roofs this term is close to zero.
+
+
+**8. Yearly total.** The three parts were added together for every hour and summed over the year, then divided by 1,000 to convert from Wh/m² to kWh/m². On average, direct sunlight made up [ ]% of the yearly total on roofs, diffuse made up [ ]% and reflected made up [ ]%.
+
+:::{dropdown} Code: yearly total
+```python
+# Add the three parts together and convert from Wh to kWh
+west_yearly = (west_direct + west_diffuse + west_reflected) / 1000
+east_yearly = (east_direct + east_diffuse + east_reflected) / 1000
+
+# Check the range of the results
+print("West:", round(west_yearly.min()), "to", round(west_yearly.max()))
+print("East:", round(east_yearly.min()), "to", round(east_yearly.max()))
+```
+This adds the direct, diffuse and reflected parts together for every pixel and converts the total from Wh/m² to kWh/m². The print lines check that the results are in a sensible range.
+:::
 
 ::::{tab-item} SEBE
 SEBE (Solar Energy on Building Envelopes) is a solar model in the UMEP plugin for QGIS (Lindberg et al., 2015). It uses the surface model and a weather file to work out how much sunlight reaches each cell over a year, taking into account shading from nearby buildings and trees.
@@ -162,7 +283,7 @@ flowchart TD
 
 The weather file was converted to UMEP's text format with the UMEP pre-processing tool. The same tool set was used to make wall height and wall aspect rasters from each subset's surface model, leaving out walls lower than 3 m. SEBE was then run on these layers to estimate solar radiation for a typical year.
 
-SEBE would not run in current versions of QGIS at first, because of a NumPy version problem in the sun position step. A small patch to the plugin code fixed this, and SEBE was run on one computer.
+SEBE would not run in current versions of QGIS at first, because a NumPy update broke the sun position step of the plugin. We fixed this by editing a small part of the plugin code so it worked with the newer NumPy version. Because the fix was made to the copy of the plugin installed on one computer, both subsets were run through SEBE on that same machine so the settings stayed consistent.
 
 ::::
 
@@ -184,11 +305,15 @@ SEBE would not run in current versions of QGIS at first, because of a NumPy vers
 
 ## How we compared them
 
-Both models produce a raster of yearly sunlight in kWh/m² for the same cells. A sloped roof has more surface than it appears to from above, so each cell's area was corrected for slope before adding up:
+Both models produce a final raster of yearly sunlight in kWh/m² for the same 0.5 m cells. Turning this into a total for each roof, slope needs to be accounted for first. A sloped roof has more surface area than it looks like from above, so each cell's area was corrected for slope ([](#eq-area)):
 
-Actual area = cell area / cos(slope)
+```{math}
+:label: eq-area
 
-The cell area is 0.25 m² (0.5 m × 0.5 m). Zonal statistics in QGIS were then used to add up the yearly sunlight on each building's roof. The same steps were applied to the SEBE output and to our Python model output, so the two could be compared roof by roof. The results were mapped in five classes using natural breaks (Jenks).
+A_{actual} = \frac{A_{cell}}{\cos(\theta)}
+```
+
+where $A_{cell}$ is the cell area of 0.25 m² (0.5 m × 0.5 m) and $\theta$ is the slope of the cell (UMEP, n.d.). Each cell's yearly sunlight (kWh/m²) was multiplied by its actual area to give the yearly sunlight in kWh for that cell. Zonal statistics in QGIS were then used to add these up for each building, giving the total yearly sunlight on each roof in kWh per year. The same steps were applied to the SEBE output and our Python model output, so the two could be compared roof by roof.
 
 
 ## Suitability criteria
