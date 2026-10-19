@@ -1,5 +1,5 @@
 ---
-title: Hobart’s Hidden Power Potential- Mapping Rooftop Solar Potential
+title: Hobart’s Hidden Power Potential      Mapping Rooftop Solar Potential
 short_title: Overview
 ---
 
@@ -51,4 +51,7 @@ Key findings and how they relate to our project aims
 :::
 ::::
 
-All code for this project is in our group repository.           {button}`View the code on GitHub <https://github.com/University-of-Tasmania-GPSS/AT3_Group1_2026>`
+
+All code for this project is in our group repository.
+
+{button}`View the code on GitHub <https://github.com/University-of-Tasmania-GPSS/AT3_Group1_2026>`

@@ -9,12 +9,21 @@ The uptake of solar panels as a source of renewable energy has increased substan
 :width: 80%
 :alt: Bar chart of the annual value of household solar electricity in Tasmania, rising from near zero in 2004-05 to 15.8 million dollars in 2024-25
 
-Annual value of household solar electricity in Tasmania, 2004-05 to 2024-25 ($ million). Source: [Australian Bureau of Statistics](https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy).
+Annual value of household solar electricity in Tasmania, 2004-05 to 2024-25 ($ million). Source: [ABS, 2025](https://www.abs.gov.au/articles/household-solar-electricity-generation-australian-national-accounts#insights-into-household-solar-electricity-generation-in-the-australian-economy).
 ```
 
-How much sunlight a roof gets depends on its slope, the direction it faces and what shades it. In Hobart the sun stays low in the sky through winter, so a north-facing roof can collect far more than a south-facing one on the same house.
+How much sunlight a roof gets depends on its slope, the direction it faces and what shades it. In Hobart the sun stays low in the sky through winter, so a north-facing roof can accumulate far more than a south-facing one on the same house.
 
 A solar model gives one number for every small patch of roof: the solar radiation that lands on it over a year, measured in kilowatt hours per square metre (kWh/m²). For scale, open flat ground in Hobart gets about 1,400 kWh/m² a year (Global Solar Atlas, 2024). A well-angled, unshaded roof gets more than that, and a shaded or south-facing one gets a lot less. This number is the sunlight arriving at the roof, not the electricity a panel would make.
+
+Established tools such as the Solar Energy on Building Envelopes (SEBE) model in the UMEP plugin for QGIS can estimate this for every pixel of a roof, including shading from nearby buildings and trees (Lindberg et al., 2015; Lindberg et al., 2018). However, these tools can be slow to run over large areas at high resolution and rely on specialist software.
+
+## Motivation
+
+If you know which roofs get the most sun, and which parts of each roof, it's much easier for households to decide if panels are worth it. It also helps councils and network planners get ready for more rooftop solar (Roberts et al., 2018). But for that to work, the model has to be accurate and still be practical to run.
+
+We found this out the hard way. Our original study area was too big for SEBE to process at 0.5 m resolution. That got us wondering if a simpler model we built ourselves in Python could get close enough to SEBE to be useful. Building it from scratch also meant we had to understand every step of how solar radiation is calculated, instead of just trusting a tool we couldn't see inside.
+
 
 
 ## Project overview
