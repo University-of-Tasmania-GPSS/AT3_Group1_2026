@@ -1,5 +1,6 @@
 ---
-title: Hobart’s Hidden Power Potential. Mapping Rooftop Solar Potential
+title: Hobart’s Hidden Power Potential. 
+title: Mapping Rooftop Solar Potential
 short_title: Overview
 ---
 
@@ -12,7 +13,7 @@ A comparison of rooftop solar potential estimated by a simplified Python model a
 
 
 
-```{figure} Images/Solar_potential_Study.png
+```{figure} Images/Solar_potential_Study.jpg
 :width: 90%
 :alt: Map of estimated annual facade-level PV potential in Luohu District, Shenzhen
 
@@ -27,22 +28,22 @@ Estimated annual facade-level PV potential (kWh/m²/year) in Luohu District, She
 :::{card} Introduction
 :link: intro
 :footer: Part 1
-ackground on rooftop solar in Hobart and the reasons for building our own model
+Background on rooftop solar in Hobart.
 :::
 :::{card} Methods
 :link: methods
 :footer: Part 2
-LiDAR processing, the Python solar model and the SEBE workflow
+LiDAR processing, the Python solar model and the SEBE workflow.
 :::
 :::{card} Results
 :link: results
 :footer: Part 3
-How closely the Python model matches SEBE across Sandy Bay and Howrah
+How closely the Python model matches SEBE across sites.
 :::
 :::{card} Discussion
 :link: discussion
 :footer: Part 4
-Challenges faced, limitations of each model and alternative approaches
+Challenges, limitations and alternative approaches
 :::
 :::{card} Conclusion
 :link: conclusion
@@ -51,6 +52,4 @@ Key findings and how they relate to our project aims
 :::
 ::::
 
-All code for this project is in our group repository.
-
-{button}`View the code on GitHub <https://github.com/University-of-Tasmania-GPSS/AT3_Group1_2026>`
+All code for this project is in our group repository.   {button}`View the code on GitHub <https://github.com/University-of-Tasmania-GPSS/AT3_Group1_2026>`
