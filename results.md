@@ -124,14 +124,24 @@ Adding up the sunlight on each building gives one total per roof. These totals d
 
 ::::{tab-set}
 :::{tab-item} Python model
-![Total yearly sunlight per roof from the Python model](Images/Sumzonalcomparisons2.png)
+![Total yearly sunlight per roof from the Python model](Images/Sum zonal comparisons PythonWhiteB.png)
 :::
 :::{tab-item} SEBE
-![Total yearly sunlight per roof from SEBE](Images/SumzonalcomparisonsSEBE.png)
+![Total yearly sunlight per roof from SEBE](Images/Sum zonal comparisonsSEBEwhite.png)
+:::
+::::
+Values are the total yearly sunlight on each building in kWh per year, shown in five natural breaks classes.
+
+::::{tab-set}
+:::{tab-item} Python model
+![Total yearly sunlight per roof from the Python model](Images/Mean zonal comparisons Python.png)
+:::
+:::{tab-item} SEBE
+![Total yearly sunlight per roof from SEBE](Images/Mean zonal comparisons SEBE.png)
 :::
 ::::
 
-Values are the total yearly sunlight on each building in kWh per year, shown in five natural breaks classes.
+Values are the mean yearly sunlight on each building in kWh/m², shown in five user-defined intervals.
 
 ## Suitable roof area
 
