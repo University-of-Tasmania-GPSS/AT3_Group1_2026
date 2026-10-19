@@ -125,7 +125,7 @@ Many of the documentation pages and worked examples used to build the code are l
 - Lindsay, J. B. (2016). Whitebox GAT: A case study in geomorphometric analysis. *Computers & Geosciences, 95*, 75–84. https://doi.org/10.1016/j.cageo.2016.07.003
 -  Ilba, M. (2025). SolarQGIS: A QGIS application for calculating solar radiation on 3D vector GIS data. SoftwareX, 31, 102230. https://doi.org/10.1016/j.softx.2025.102230 Kodysh, J. B., Omitaomu, O.
 -  A., Bhaduri, B. L., & Neish, B. S. (2013). Methodology for estimating solar potential on multiple building rooftops for photovoltaic systems. Sustainable Cities and Society, 8, 31–41. https://doi.org/10.1016/j.scs.2013.01.002
-
+- Lindberg, F., Grimmond, C. S. B., Gabey, A., Huang, B., Kent, C. W., Sun, T. et al (2018). Urban Multi-scale Environmental Predictor (UMEP): An integrated tool for city-based climate services. *Environmental Modelling & Software, 99*, 70–87. https://doi.org/10.1016/j.envsoft.2017.09.020
 
 ### AI Usage
 Claude.ai was used during this project to:
