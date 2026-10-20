@@ -115,31 +115,21 @@ Run the notebooks in this order. Each one saves outputs that the next one reads 
 ## AI usage and References
 Many of the documentation pages and worked examples used to build the code are linked directly in the notebooks, next to the step they were used for.
 
-- Klein, S. A. (1977). Calculation of monthly average insolation on tilted surfaces. *Solar Energy, 19*(4), 325–329. https://doi.org/10.1016/0038-092X(77)90001-9
-- Liu, B. Y. H., & Jordan, R. C. (1960). The interrelationship and characteristic distribution of direct, diffuse and total solar radiation. *Solar Energy, 4*(3), 1–19. https://doi.org/10.1016/0038-092X(60)90062-1
-- Roberts, M. B., Copper, J., & Bruce, A. (2018). *Analysis of rooftop solar potential on Australian residential buildings* [Conference paper]. Asia Pacific Solar Research Conference, Sydney, Australia. https://energyconsumersaustralia.com.au/sites/default/files/2025-05/apsrc-paper-rooftop-solar-potential-2018.pdf
-- UMEP. (n.d.). *Solar energy – Introduction to SEBE* [Tutorial]. https://umep-docs.readthedocs.io/projects/tutorial/en/latest/Tutorials/SEBE.html
-  
 - Anderson, K. S., Hansen, C. W., Holmgren, W. F., Jensen, A. R., Mikofski, M. A., & Driesse, A. (2023). pvlib python: 2023 project update. *Journal of Open Source Software, 8*(92), 5994. https://doi.org/10.21105/joss.05994
-- Jensen, A. R., Anderson, K. S., Holmgren, W. F., Mikofski, M. A., Hansen, C. W., Boeman, L. J., & Loonen, R. (2023). pvlib iotools – Open-source Python functions for seamless access to solar irradiance data. *Solar Energy, 266*, 112092. https://doi.org/10.1016/j.solener.2023.112092
+- Grinberg, E. (2022). Solar radiation and renewable electricity calculation. In *Technical guide for estimating building rooftop solar potential in a city*. Bookdown. https://bookdown.org/einavg7/sp_technical_guide/solar-radiation-and-renewable-electricity-calculation.html
+- Hofierka, J., & Šúri, M. (2002). The solar radiation model for Open source GIS: Implementation and applications. In *Proceedings of the Open Source GIS – GRASS Users Conference 2002*. Trento, Italy.
+- Hofierka, J., & Zlocha, M. (2012). A new 3-D solar radiation model for 3-D city models. *Transactions in GIS, 16*(5), 681–690. https://doi.org/10.1111/j.1467-9671.2012.01337.x
+- Ilba, M. (2025). SolarQGIS: A QGIS application for calculating solar radiation on 3D vector GIS data. *SoftwareX, 31*, 102230. https://doi.org/10.1016/j.softx.2025.102230
+- Jensen, A. R., Anderson, K. S., Holmgren, W. F., Mikofski, M. A., Hansen, C. W., Boeman, L. J., & Loonen, R. (2023). pvlib iotools—Open-source Python functions for seamless access to solar irradiance data. *Solar Energy, 266*, 112092. https://doi.org/10.1016/j.solener.2023.112092
+- Kodysh, J. B., Omitaomu, O. A., Bhaduri, B. L., & Neish, B. S. (2013). Methodology for estimating solar potential on multiple building rooftops for photovoltaic systems. *Sustainable Cities and Society, 8*, 31–41. https://doi.org/10.1016/j.scs.2013.01.002
+- Lindberg, F., Grimmond, C. S. B., Gabey, A., Huang, B., Kent, C. W., Sun, T., Theeuwes, N. E., Järvi, L., Ward, H. C., Capel-Timms, I., Chang, Y., Jonsson, P., Krave, N., Liu, D., Meyer, D., Olofson, K. F. G., Tan, J., Wästberg, D., Xue, L., & Zhang, Z. (2018). Urban Multi-scale Environmental Predictor (UMEP): An integrated tool for city-based climate services. *Environmental Modelling & Software, 99*, 70–87. https://doi.org/10.1016/j.envsoft.2017.09.020
+- Lindberg, F., Jonsson, P., Honjo, T., & Wästberg, D. (2015). Solar energy on building envelopes – 3D modelling in a 2D environment. *Solar Energy, 115*, 369–378. https://doi.org/10.1016/j.solener.2015.03.001
 - Lindsay, J. B. (2016). Whitebox GAT: A case study in geomorphometric analysis. *Computers & Geosciences, 95*, 75–84. https://doi.org/10.1016/j.cageo.2016.07.003
--  Ilba, M. (2025). SolarQGIS: A QGIS application for calculating solar radiation on 3D vector GIS data. SoftwareX, 31, 102230. https://doi.org/10.1016/j.softx.2025.102230 Kodysh, J. B., Omitaomu, O.
--  A., Bhaduri, B. L., & Neish, B. S. (2013). Methodology for estimating solar potential on multiple building rooftops for photovoltaic systems. Sustainable Cities and Society, 8, 31–41. https://doi.org/10.1016/j.scs.2013.01.002
-- Lindberg, F., Grimmond, C. S. B., Gabey, A., Huang, B., Kent, C. W., Sun, T. et al (2018). Urban Multi-scale Environmental Predictor (UMEP): An integrated tool for city-based climate services. *Environmental Modelling & Software, 99*, 70–87. https://doi.org/10.1016/j.envsoft.2017.09.020
-
-- Lindberg, F., Jonsson, P., Honjo, T., & Wästberg, D. (2015). Solar energy on building envelopes – 3D modelling in a 2D environment. Solar Energy, 115, 369-378. https://doi.org/10.1016/j.solener.2015.03.001
-- Hofierka, J. and Zlocha, M. (2012), New 3-D Solar Radiation Model. *Transactions in GIS, 16*: 681-690. https://doi.org/10.1111/j.1467-9671.2012.01337.x
-
-- Hofierka, Jaroslav & Ri, Marcel. (2002). The solar radiation model for Open source GIS: Implementation and applications. Proceedings of the Open Source GIS-GRASS Users Conference.
-
-- Polo, J., & García, R. J. (2023). Solar Potential Uncertainty in Building Rooftops as a Function of Digital Surface Model Accuracy. *Remote Sensing, 15(3)*, 567. https://doi.org/10.3390/rs15030567
-
-- Ilba, M. (2025). SolarQGIS: A QGIS application for calculating solar radiation on 3D vector GIS data. *SoftwareX, 31*, 102230. https://doi.org/10.1016/j.softx.2025.102230 
-- Kodysh, J. B., Omitaomu, O. A., Bhaduri, B. L., & Neish, B. S. (2013). Methodology for estimating solar potential on multiple building rooftops for photovoltaic systems. *Sustainable Cities and Society, 8*, 31–41. https://doi.org/10.1016/j.scs.2013.01.002 
-- Rozzi, E. (2025). Geospatial analysis for rooftop solar potential assessment https://youtu.be/frNXa2UcQ0A?si=zw6qWUZIUy-gh41c 
-- Solar Energy - Introduction to SEBE https://umepdocs.readthedocs.io/projects/tutorial/en/latest/Tutorials/SEBE.html#solarenergy-introduction-to-sebe 
-- Solar radiation and renewable electricity calculation https://bookdown.org/einavg7/sp_technical_guide/solar-radiation-and renewable-electricity-calculation.html 
-
+- Liu, B. Y. H., & Jordan, R. C. (1960). The interrelationship and characteristic distribution of direct, diffuse and total solar radiation. *Solar Energy, 4*(3), 1–19. https://doi.org/10.1016/0038-092X(60)90062-1
+- PoliTo Teaching. (2025, August 7). *Geospatial analysis for rooftop solar potential assessment (part 4) | Elena Rozzi* [Video]. YouTube. https://www.youtube.com/watch?v=frNXa2UcQ0A
+- Polo, J., & García, R. J. (2023). Solar potential uncertainty in building rooftops as a function of digital surface model accuracy. *Remote Sensing, 15*(3), 567. https://doi.org/10.3390/rs15030567
+- Roberts, M. B., Copper, J., & Bruce, A. (2018). *Analysis of rooftop solar potential on Australian residential buildings* [Conference paper]. Asia-Pacific Solar Research Conference, Sydney, Australia. https://energyconsumersaustralia.com.au/sites/default/files/2025-05/apsrc-paper-rooftop-solar-potential-2018.pdf
+- UMEP. (n.d.). *Solar energy – Introduction to SEBE* [Tutorial]. https://umep-docs.readthedocs.io/projects/tutorial/en/latest/Tutorials/SEBE.html
 
 
 ### AI Usage

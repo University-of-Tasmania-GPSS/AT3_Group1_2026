@@ -1,5 +1,5 @@
 ---
-title: Hobart’s Hidden Power Potential      Mapping Rooftop Solar Potential
+title: Hobart’s Hidden Power Potential,     Mapping Rooftop Solar Potential
 short_title: Overview
 ---
 

@@ -58,7 +58,7 @@ All of the preparation was done for the full study area first, and the two subse
 
 ### Surface model
 
-A 1m digital elevation model was first downloaded, but it couldn't identify the shape of individual roofs. A LiDAR point cloud from ELVIS was then loaded and built a 0.5 m digital surface model in ArcGIS Pro. A surface model gives the height of whatever is on top, so it includes roofs and trees and not just the ground.
+A 1m digital elevation model was first downloaded, but it couldn't identify the shape of individual roofs. A LiDAR point cloud from ELVIS was then loaded and built a 0.5 m digital surface model in ArcGIS Pro.
 
 
 ### Building footprints
@@ -68,7 +68,7 @@ The study area crosses two council areas, so the Hobart and Clarence building la
 
 ### Weather data
 
-The weather file is a projected typical year of hourly data from the Hobart Ellerslie Road station. Adding up GHI for the year gave 1,424 kWh/m². Most of that falls in summer ([](#fig-monthly-ghi)), which is why roof direction matters so much in Hobart. As a check, we compared this with the Global Solar Atlas value for the same location, which was 1,353 kWh/m².
+The weather file is a projected typical year of hourly data from the Hobart Ellerslie Road station. Adding up GHI for the year gave 1,424 kWh/m². Most of that falls in summer ([](#fig-monthly-ghi)), which is why roof direction matters so much in Hobart. As a check, this was compared with the Global Solar Atlas value for the same location, which was 1,353 kWh/m².
 
 ```{figure} Images/monthly_ghi.png
 :label: fig-monthly-ghi
@@ -91,14 +91,16 @@ In the Sandy Bay Subset there were 484 buildings and in the Howrah subset there 
 
 ::::{tab-item} Our Python model
 
+This model calculates the sunlight on every 0.5 m cell over a year. It adds up three parts: direct sunlight, diffuse sunlight from the sky, and sunlight reflected off the ground.
+
 ```{mermaid}
 flowchart TD
   A[Surface model]
   C[Weather file]
 
-  B[Slope and aspect<br>GDAL]
-  D[Sun position and hourly sunlight<br>pvlib, typical day each month]
-  E[Shadows<br>WhiteboxTools]
+  B[Slope and aspect<br><i>GDAL<i>]
+  D[Sun position and hourly sunlight<br><i>pvlib, typical day each month</i>]
+  E[Shadows<br><i>WhiteboxTools<i>]
 
   F[Sunlight on each cell<br>direct + diffuse + reflected]
   G[Yearly total<br>kWh/m²]
@@ -121,9 +123,7 @@ flowchart TD
   class G output
 ```
 
-This model works out how much sunlight lands on every 0.5 m cell over a year. It adds up three parts: direct sunlight, diffuse sunlight from the sky, and sunlight reflected off the ground.
-
-**1. Surface characteristics.** Slope, aspect and roughness were calculated from the surface model with GDAL. Slope and aspect go into the model. Roughness was calculated but not used in the end.
+**1. Surface characteristics.** Slope, aspect and roughness were calculated from the surface model with GDAL, however, roughness didnt provide enough added detail to warrant adding into the model.
 
 :::{dropdown} Slope
 How steep each cell is, in degrees. A flat roof is close to 0° and a wall is close to 90°.
@@ -161,9 +161,9 @@ Surface roughness for the Sandy Bay (left) and Howrah (right) subsets.
 ```
 :::
 
-**2. Sun position.** For every hour in the weather file, pvlib works out where the sun is in the sky: its elevation and its azimuth (Anderson et al., 2023). The position was taken at the middle of each hour, since the weather values cover the whole hour. This only needs the latitude, longitude and time zone of the study area.
+**2. Sun position.** For every hour in the weather file, pvlib calculates where the sun is in the sky: its elevation and its azimuth (Anderson et al., 2023). The position was taken at the middle of each hour, since the weather values cover the whole hour.
 
-**3. Typical day.** Running the shadow step for all 8,760 hours of the year would take too long. Instead, we used the sun's position on the 15th of each month as a typical day for that month, which is close to the average days recommended by Klein (1977).
+**3. Typical day.** Running the shadow step for all 8,760 hours of the year would take too long. Instead, we used the sun's position on the 15th of each month as a typical day for that month.
 
 **4. Shadows.** For each daylight hour of the typical day, WhiteboxTools works out the horizon angle of every cell in the direction of the sun. This is how high the skyline looks from that cell, looking towards the sun. If the horizon angle is higher than the sun's elevation, something is blocking the sun and the cell is in shadow ([](#fig-shadow-example)).
 
@@ -192,7 +192,12 @@ def cast_shadows(dsm_path, altitude_degrees, azimuth_degrees):
 
     return shadow
 ```
-For each hour, WhiteboxTools works out how high the skyline is from every pixel, looking towards the sun. If the skyline is higher than the sun, that pixel is in shadow.
+- **Inputs:** the surface model and one sun position (elevation and compass direction).
+- **`wbt.horizon_angle`:** works out the skyline angle for every cell, looking towards the sun up to 600 m away, and saves it as a raster.
+- **Read the raster:** loads the skyline angles back in as an array.
+- **The comparison:** any cell where the skyline is higher than the sun is marked True, meaning it's in shadow.
+- **Output:** the True/False shadow map, used in the next step to switch off direct sunlight for shaded cells.
+
 :::
 
 ```{figure} Images/shadows_june.png
@@ -203,43 +208,38 @@ For each hour, WhiteboxTools works out how high the skyline is from every pixel,
 Shadow masks at noon on 21 June, the winter solstice, when the sun is at its lowest. Black cells are in shadow. The low winter sun casts long shadows.
 ```
 
-**5. Direct sunlight.** How much direct sunlight a cell gets depends on the angle between the sun and the surface. This is the angle of incidence ($\theta$), worked out from the cell's slope ($\beta$) and aspect ($\gamma$) and the sun's zenith angle ($\theta_z$) and azimuth ($\gamma_s$) (Duffie & Beckman, 2013):
+**5. Direct sunlight.** Direct sunlight is the light coming straight from the sun. How much of it a cell gets depends on how directly the cell faces the sun. A roof facing straight at the sun gets the full amount, and the more it's angled away, the less it gets. We worked this out for each hour from the cell's slope and aspect and the sun's position, using the same equation pvlib uses (Anderson et al., 2023; pvlib, n.d.-a). This gives a "facing the sun" value between 0 and 1. Cells facing away from the sun get 0.
 
-```{math}
-:label: eq-incidence
-
-\cos\theta = \cos\beta\cos\theta_z + \sin\beta\sin\theta_z\cos(\gamma_s - \gamma)
-```
-
-The direct sunlight on a cell for each hour is then:
+The direct sunlight on a cell for each hour is then (pvlib, n.d.-b):
 
 ```{math}
 :label: eq-direct
 
-I_{dir} = DNI \times \cos\theta \times S
+\text{Direct} = \text{DNI} \times \text{facing the sun} \times \text{shadow}
 ```
 
-where $DNI$ is direct normal irradiance from the weather file and $S$ is the shadow mask (0 in shadow, 1 in sun). If $\cos\theta$ is negative the cell faces away from the sun, so it is set to zero. For each hour of the typical day, the DNI for that hour on every day of the month was added up and used in [](#eq-direct). That way the whole month's sunlight is counted, even though the shadows only come from one day.
+DNI is the direct sunlight from the weather file, and the shadow mask is 0 if the cell is in shadow and 1 if it's in sun. For each hour of the typical day, we added up the DNI for that hour across every day of the month. That way the whole month's sunlight is counted, even though the shadows only come from one day.
 
-**6. Diffuse sunlight.** Diffuse sunlight comes from the whole sky rather than straight from the sun. We treated the sky as equally bright in every direction (an isotropic sky). A flat cell sees the whole sky, and a tilted cell sees less of it:
+**6. Diffuse sunlight.** Diffuse sunlight is light that has been scattered by clouds and the air, so it comes from the whole sky rather than straight from the sun. We assumed the sky is equally bright in every direction. A flat roof can see the whole sky, so it gets all of the diffuse sunlight. A tilted roof can only see part of the sky, so it gets less (pvlib, n.d.-c):
 
 ```{math}
 :label: eq-diffuse
 
-I_{diff} = DHI \times \frac{1 + \cos\beta}{2}
+\text{Diffuse} = \text{DHI} \times \frac{1 + \cos(\text{slope})}{2}
 ```
 
-where $DHI$ is diffuse horizontal irradiance (Klein, 1977). Since diffuse sunlight doesn't depend on where the sun is, the yearly DHI total was used rather than going hour by hour. Shadows were not applied to diffuse sunlight, which is one of the main differences from SEBE.
+DHI is the diffuse sunlight from the weather file. For a flat roof the fraction is 1, and for a wall it's 0.5. Diffuse sunlight doesn't depend on where the sun is, so we used the yearly DHI total instead of going hour by hour. We didn't apply shadows to diffuse sunlight, and this is one of the main differences from SEBE.
 
-**7. Reflected sunlight.** Tilted cells also pick up some sunlight reflected off the ground:
+**7. Reflected sunlight.** Tilted roofs also pick up a small amount of sunlight that bounces off the ground (pvlib, n.d.-d):
 
 ```{math}
 :label: eq-reflected
 
-I_{ref} = GHI \times \rho \times \frac{1 - \cos\beta}{2}
+\text{Reflected} = \text{GHI} \times \text{albedo} \times \frac{1 - \cos(\text{slope})}{2}
 ```
 
-where $GHI$ is global horizontal irradiance and $\rho$ is the ground albedo (Klein, 1977). Like diffuse, this was worked out from the yearly GHI total. We used an albedo of 0.15, the same as the SEBE default. For flat roofs this part is close to zero.
+GHI is the total sunlight on flat ground from the weather file, and albedo is how much of it the ground reflects. We used 0.15, which is the SEBE default. A flat roof can't see the ground, so it gets almost none of this, while steeper roofs get a little more. Like diffuse, we used the yearly GHI total.
+
 
 **8. Yearly total.** The yearly direct sunlight from the loop was added to the yearly diffuse and reflected sunlight, then divided by 1,000 to convert from Wh/m² to kWh/m².
 
@@ -248,12 +248,8 @@ where $GHI$ is global horizontal irradiance and $\rho$ is the ground albedo (Kle
 # Add the three parts together and convert from Wh to kWh
 west_yearly = (west_direct + west_diffuse + west_reflected) / 1000
 east_yearly = (east_direct + east_diffuse + east_reflected) / 1000
-
-# Check the range of the results
-print("West:", round(west_yearly.min()), "to", round(west_yearly.max()))
-print("East:", round(east_yearly.min()), "to", round(east_yearly.max()))
 ```
-This adds the direct, diffuse and reflected parts together for every pixel and converts the total from Wh/m² to kWh/m². The print lines check that the results are in a sensible range.
+This adds the direct, diffuse and reflected parts together for every pixel and converts the total from Wh/m² to kWh/m².
 :::
 
 ::::
@@ -313,17 +309,17 @@ Both models produce a final raster of yearly sunlight in kWh/m² for the same 0.
 
 ## Suitability criteria
 
-A cell receiving plenty of sun is not always somewhere a panel can go. It might be a tree, a wall or the ground. We set three rules, and a cell only counts as suitable if it passes all of them. The rules were applied to the yearly sunlight output from our Python model.
+A cell receiving plenty of sun is not always somewhere a panel can go. It might be a tree, a wall or the ground, so to identify these uitable region three rules were selected and a cell only counts as suitable if it passes all of them. The rules were applied to the yearly sunlight output from our Python model.
 
 | Rule | Limit | Why |
-|---|---|---|
+|----|---|---|
 | On a building | Inside a building footprint | Only roofs count, not ground or trees |
 | Not a wall | Slope of 65° or less | Steeper cells are walls or roof edges (UMEP, n.d.) |
 | Enough sun | At least 1,139 kWh/m² a year | 80% of the sunlight on an unshaded flat surface. Leaves out shaded and poorly angled roof (Roberts et al., 2018) |
 
 The sunlight limit is 80% of the 1,424 kWh/m² a year that falls on flat open ground in the weather file. This follows Roberts et al. (2018), who used 80% of the sunlight on an unshaded horizontal surface to pick out usable roof for PV.
 
-There is no separate rule for aspect or shading. South-facing and shaded cells get less sun, so they already fail the sunlight rule. Roughness was also left out, because we could not find a limit to cite for it and steep roof edges are already removed by the slope rule. One limitation is that trees hanging over a roof sit inside the building footprint, and their tops are often in full sun, so some tree cells may be counted as suitable roof.
+There is no separate rule for aspect or shading. South-facing and shaded cells get less sun, so they already fail the sunlight rule. Roughness was also left out, because we could not find a limit to cite for it and steep roof edges are already removed by the slope rule. One limitation is that trees hanging over a roof sit inside the building footprint, and their tops are often in full sun, so some tree cells may be counted as suitable roof. Each rule was turned into a yes/no raster, and a cell was marked suitable only where all three were yes.
 
 ```{mermaid}
 flowchart TD
@@ -340,5 +336,3 @@ flowchart TD
   class D python
   class E output
 ```
-
-Each rule was turned into a yes/no raster, and a cell was marked suitable only where all three were yes. The number of suitable cells was then multiplied by 0.25 m² to give the total suitable roof area in each subset.

@@ -3,28 +3,10 @@
 ```{figure} Images/East_3D.png
 :label: fig-eastern-image
 :width: 80%
-:alt: 3D view of our Eastern shore study patch
-```
-
-```{figure} Images/East_3D.png
-:label: fig-eastern-image
-:width: 80%
 :alt: 3D view of the Howrah study area
 
 3D view of the Howrah study area.
 ```
-
-
-```{figure} Images/3d_Howrah.png
-:label: fig-eastern-image
-:width: 80%
-:alt: 3D view of the Howrah study area
-
-3D view of the Howrah study area.
-```
-
-
-
 
 -	We isolated two separate study areas on the East and West of the river Derwent in Hobart, Tasmania.
 
