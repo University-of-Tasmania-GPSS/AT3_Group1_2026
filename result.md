@@ -114,7 +114,7 @@ The two models reach almost the same highest values, but SEBE goes much lower on
 
 To compare whole roofs, the average yearly sunlight on each building was found for both models using zonal statistics in QGIS ([](#fig-model-graphs)).
 
-```{figure} Images/SEBE_vs_Python_graphs.png
+```{figure} Images/SEBE_vs_Python_scatter.png
 :label: fig-model-graphs
 :width: 100%
 :alt: Graphs comparing the Python model and SEBE for each building
@@ -158,6 +158,8 @@ Positive values mean our model is higher than SEBE.
 
 Adding up the sunlight on each building gives one total per roof. These totals depend on the size of the roof as well as how sunny it is, so the few large buildings fall in the highest class and most houses sit in the middle classes. The two models gave a very similar pattern, with SEBE slightly lower. [The largest roof in Sandy Bay reached about 1.78 million kWh a year in SEBE and 1.89 million in our model. In Howrah it was about 1.10 million in SEBE and 1.19 million in ours.]
 
+### Zonal statistics - Sum 
+
 ::::{tab-set}
 :::{tab-item} Python model
 ![Total yearly sunlight per roof from the Python model](Images/SumzonalcomparisonsPythonWhiteB.png)
@@ -168,6 +170,8 @@ Adding up the sunlight on each building gives one total per roof. These totals d
 ::::
 
 Values are the total yearly sunlight on each building in kWh per year, shown in five natural breaks classes.
+
+### Zonal statistics - Mean values per raster cell
 
 :::::{tab-set}
 :::{tab-item} Python model
