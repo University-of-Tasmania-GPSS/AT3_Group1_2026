@@ -18,6 +18,7 @@ Getting SEBE working in QGIS at first was a problem, as it currently has a run p
 
 ```{figure} Images/solarroof3.jpg
 :label: fig-solar-roof
+
 :width: 80%
 :alt: 
 ```
