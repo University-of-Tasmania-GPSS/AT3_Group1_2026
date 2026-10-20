@@ -7,7 +7,7 @@ project:
     - file: index.md
     - file: intro.md
     - file: methods.md
-    - file: results.md
+    - file: result.md
     - file: discussion.md
     - file: conclusion.md
   # description:
