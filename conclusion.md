@@ -1,7 +1,7 @@
 # Conclusion
 
 ```{figure} Images/east_3d.png
-:label: fig-eastern3d
+:label: fig-eastern-image
 :width: 80%
 :alt: 3D view of our Eastern shore study patch
 ```
