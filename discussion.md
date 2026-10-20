@@ -33,7 +33,7 @@ The sky difference in the sky models used for our analysis, might also have lead
 
 Edge effects, complications caused where a pixel straddles a bit of roof and the ground, for example, or where variations occur due to chimneys or other extrusions on a roof’s surface may be responsible for the difference in the two models’ outputs. These are improved with a finer resolution DSM. Weighing the benefits of fine resolution with the higher computational demands to run the software caused us to reduce our study area size, so decisions made in this regard are a balancing act.
 
-Applying a negative buffer (effectively shrinking) a roof edge and thereby avoiding the double surface transition, might have been another avenue to explore, when comparing our Python and SEBE models. Roof edge pixels are the area’s of most uncertainty, where areas are complex and the topology diverse (Polo, 2023)
+Applying a negative buffer (effectively shrinking) a roof edge and thereby avoiding the double surface transition, might have been another avenue to explore, when comparing our Python and SEBE models. Roof edge pixels are the areas of most uncertainty, where areas are complex and the topology diverse (Polo, 2023)
 
 Running the same analysis on more sample urban areas patches, including areas further up under the lee of Mt Wellington would have expanded our ability to compare the two models.
 
