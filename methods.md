@@ -263,12 +263,19 @@ SEBE (Solar Energy on Building Envelopes) is a solar model in the UMEP plugin fo
 
 ```{mermaid}
 flowchart TD
-  A[Surface model] --> B[Wall height and aspect]
-  C[Weather file] --> D[UMEP met format]
-  A --> E[SEBE]
+  A[Digital Surface model] --> B[UMEP Preprocessing tool<br> for Wall height and aspect]
+  C[Weather file<br>EPW] --> D[UMEP Metdata processor]
+  E[Wall height raster]
+  F[Wall aspect raster]
+  G[SEBE]
+  H[Annual radiation raster]
+  I
   B --> E
-  D --> E
-  E --> F[Annual radiation raster]
+  B --> F
+  E --> G
+  F --> G
+  D --> G
+  G --> H
 ```
 
 The weather file was converted to UMEP's text format with the UMEP pre-processing tool. The same tool set was used to make wall height and wall aspect rasters from each subset's surface model, leaving out walls lower than 3 m. SEBE was then run on these layers to estimate solar radiation for a typical year.
