@@ -169,7 +169,7 @@ Adding up the sunlight on each building gives one total per roof. These totals d
 
 Values are the total yearly sunlight on each building in kWh per year, shown in five natural breaks classes.
 
-::::{tab-set}
+:::::{tab-set}
 :::{tab-item} Python model
 ![Mean yearly sunlight per roof from the Python model](Images/MeanzonalcomparisonsPython.png)
 :::
