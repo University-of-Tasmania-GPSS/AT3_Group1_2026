@@ -1,6 +1,10 @@
 # Conclusion
 
-*Insert nice pic here*
+```{figure} Images/East_3D.jpg
+:label: fig-solar-roof
+:width: 80%
+:alt: 3D view of our Eastern shore study patch
+```
 
 -	We isolated two separate study areas on the East and West of the river Derwent in Hobart, Tasmania.
 
