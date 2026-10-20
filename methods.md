@@ -263,12 +263,12 @@ SEBE (Solar Energy on Building Envelopes) is a solar model in the UMEP plugin fo
 
 ```{mermaid}
 flowchart TD
-  A[**Digital Surface model**] --> B[UMEP Preprocessing tool<br> for Wall height and aspect]
+  A["`**Digital Surface model**`"] --> B[UMEP Preprocessing tool<br> for Wall height and aspect]
   C[Weather file<br>EPW] --> D[UMEP Metdata processor]
   E[Wall height raster]
   F[Wall aspect raster]
   G[SEBE]
-  H[**Annual radiation raster**]
+  H["`**Annual radiation raster**`"]
   B --> E
   B --> F
   E --> G
@@ -279,7 +279,6 @@ flowchart TD
   classDef input fill:#cfe2f3,stroke:#3d85c6,color:#000
   classDef python fill:#fff2cc,stroke:#bf9000,color:#000
   classDef output fill:#d9ead3,stroke:#38761d,color:#000
-
   class A,C input
   class B,D,E,F,H python
   class H output
