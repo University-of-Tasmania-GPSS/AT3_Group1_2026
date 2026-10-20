@@ -1,6 +1,6 @@
 # Conclusion
 
-```{figure} Images/East_3D.jpg
+```{figure} Images/east_3d.png
 :label: fig-solar-roof
 :width: 80%
 :alt: 3D view of our Eastern shore study patch
