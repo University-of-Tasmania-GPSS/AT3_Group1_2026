@@ -126,6 +126,19 @@ Many of the documentation pages and worked examples used to build the code are l
 -  Ilba, M. (2025). SolarQGIS: A QGIS application for calculating solar radiation on 3D vector GIS data. SoftwareX, 31, 102230. https://doi.org/10.1016/j.softx.2025.102230 Kodysh, J. B., Omitaomu, O.
 -  A., Bhaduri, B. L., & Neish, B. S. (2013). Methodology for estimating solar potential on multiple building rooftops for photovoltaic systems. Sustainable Cities and Society, 8, 31–41. https://doi.org/10.1016/j.scs.2013.01.002
 - Lindberg, F., Grimmond, C. S. B., Gabey, A., Huang, B., Kent, C. W., Sun, T. et al (2018). Urban Multi-scale Environmental Predictor (UMEP): An integrated tool for city-based climate services. *Environmental Modelling & Software, 99*, 70–87. https://doi.org/10.1016/j.envsoft.2017.09.020
+- Hofierka, J. and Zlocha, M. (2012), New 3-D Solar Radiation Model. *Transactions in GIS, 16*: 681-690. https://doi.org/10.1111/j.1467-9671.2012.01337.x
+
+- Hofierka, Jaroslav & Ri, Marcel. (2002). The solar radiation model for Open source GIS: Implementation and applications. Proceedings of the Open Source GIS-GRASS Users Conference.
+
+- Polo, J., & García, R. J. (2023). Solar Potential Uncertainty in Building Rooftops as a Function of Digital Surface Model Accuracy. *Remote Sensing, 15(3)*, 567. https://doi.org/10.3390/rs15030567
+
+- Ilba, M. (2025). SolarQGIS: A QGIS application for calculating solar radiation on 3D vector GIS data. *SoftwareX, 31*, 102230. https://doi.org/10.1016/j.softx.2025.102230 
+- Kodysh, J. B., Omitaomu, O. A., Bhaduri, B. L., & Neish, B. S. (2013). Methodology for estimating solar potential on multiple building rooftops for photovoltaic systems. *Sustainable Cities and Society, 8*, 31–41. https://doi.org/10.1016/j.scs.2013.01.002 
+- Rozzi, E. (2025). Geospatial analysis for rooftop solar potential assessment https://youtu.be/frNXa2UcQ0A?si=zw6qWUZIUy-gh41c 
+- Solar Energy - Introduction to SEBE https://umepdocs.readthedocs.io/projects/tutorial/en/latest/Tutorials/SEBE.html#solarenergy-introduction-to-sebe 
+- Solar radiation and renewable electricity calculation https://bookdown.org/einavg7/sp_technical_guide/solar-radiation-and renewable-electricity-calculation.html 
+
+
 
 ### AI Usage
 Claude.ai was used during this project to:
