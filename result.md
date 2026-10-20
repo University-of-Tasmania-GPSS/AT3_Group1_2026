@@ -173,7 +173,7 @@ Values are the total yearly sunlight on each building in kWh per year, shown in 
 
 ### Zonal statistics - Mean values per raster cell
 
-:::::{tab-set}
+::::{tab-set}
 :::{tab-item} Python model
 ![Mean yearly sunlight per roof from the Python model](Images/MeanzonalcomparisonsPython.png)
 :::
