@@ -37,4 +37,5 @@ Applying a negative buffer (effectively shrinking) a roof edge and thereby avoid
 
 Running the same analysis on more sample urban areas patches, including areas further up under the lee of Mt Wellington would have expanded our ability to compare the two models.
 
-**This study was a useful first step, exploring the power of Python-based code to run a custom-made analysis, that can be built upon, further refined and enhanced, depending on the area of investigation and the desired outcomes.**
+Our secondary question, of relevance to all Hobartian’s, **“Is it sunnier on the Eastern or Western shore?”**
+If anything our results suggested that our Western patch is sunnier, however, without further study of microclimates and weather patterns of difference between the two areas, and further comparison between aligning areas, it’s an impossible question to answer.
