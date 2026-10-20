@@ -37,7 +37,7 @@ Our model was again higher than SEBE on almost every roof cell, with an average 
 Most roof area in Sandy Bay passed all three rules, with [ ] m² of suitable roof out of [ ] m² in total ([ ]%). The roof area that failed is spread across the subset in small patches, mostly on south-facing faces, roof edges and parts of roofs shaded by trees or neighbouring houses. Large flat roofs were almost entirely suitable. As with Howrah, these results come from our model, so the suitable area is probably a slight overestimate, especially on the small, tightly packed roofs where our model differs most from SEBE.
 
 :::
-::::
+:::::
 
 Sandy Bay has dense housing, and roofs cover 21% of the subset. North-facing roof faces stand out clearly in both models, and the difference map is pale across most roofs, which means the two models mostly agree. The biggest differences are on roof faces shaded by trees and neighbouring buildings.
 
@@ -158,7 +158,7 @@ Positive values mean our model is higher than SEBE.
 
 Adding up the sunlight on each building gives one total per roof. These totals depend on the size of the roof as well as how sunny it is, so the few large buildings fall in the highest class and most houses sit in the middle classes. The two models gave a very similar pattern, with SEBE slightly lower. [The largest roof in Sandy Bay reached about 1.78 million kWh a year in SEBE and 1.89 million in our model. In Howrah it was about 1.10 million in SEBE and 1.19 million in ours.]
 
-:::::{tab-set}
+::::{tab-set}
 :::{tab-item} Python model
 ![Total yearly sunlight per roof from the Python model](Images/SumzonalcomparisonsPythonWhiteB.png)
 :::
